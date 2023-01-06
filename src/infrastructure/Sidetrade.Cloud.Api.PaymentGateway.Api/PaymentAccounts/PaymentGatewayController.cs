@@ -58,6 +58,6 @@ public class PaymentGatewayController: ControllerBase
         var request = new GetActiveVendorAccountRequest(vendorId, correlationId);
         var response = await _mediator.Send(request, cancellationToken);
 
-        return Results.Ok(new { PublicKey = response.PublicKey });
+        return Results.Ok(new { response.PublicKey });
     }
 }

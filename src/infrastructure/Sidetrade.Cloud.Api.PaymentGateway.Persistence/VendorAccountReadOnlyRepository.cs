@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;

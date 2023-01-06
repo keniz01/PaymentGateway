@@ -10,7 +10,6 @@ public static class PersistenceServiceExtensions
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //var connectionString = "server=localhost;port=5432;database=postgres;user id=postgres;password=Versuv10us";
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options

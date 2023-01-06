@@ -22,7 +22,7 @@ public class PaymentGatewayControllerTests
         var client = _webApplicationFactory.CreateClient();
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "433217");
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
-        var response = await client.GetAsync(ApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
+        var response = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
         response.IsSuccessStatusCode.Should().BeTrue();
     }
 
@@ -33,7 +33,7 @@ public class PaymentGatewayControllerTests
         var client = _webApplicationFactory.CreateClient();
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "459111");
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, "3b32bbea-642f-4959-b5cb-23d8eab0376b");
-        var responseMessage = await client.GetAsync(ApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
+        var responseMessage = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
         var httpContent = await responseMessage.Content.ReadAsStringAsync();
         var response = JsonSerializer.Deserialize<ActiveVendorAccount>(httpContent, 
             new JsonSerializerOptions
