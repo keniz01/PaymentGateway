@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="AutoBogus" Version="2.13.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +34,7 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.Extensions.DependencyInjection" />
     <None Remove="Bogus" />
+    <None Remove="AutoBogus" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sidetrade.Cloud.Api.PaymentGateway.Api.Tests\" />

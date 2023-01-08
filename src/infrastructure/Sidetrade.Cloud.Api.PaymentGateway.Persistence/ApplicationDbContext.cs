@@ -12,7 +12,7 @@ public class ApplicationDbContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GetActiveVendorAccountResponse>(options => {
+        modelBuilder.Entity<GetActiveVendorAccountQueryResult>(options => {
             options.ToTable("vendor_account");
             options.HasKey(prop => prop.VendorId);
             options.Property(prop => prop.VendorId).HasColumnName("vendor_id");
@@ -25,5 +25,5 @@ public class ApplicationDbContext: DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public DbSet<GetActiveVendorAccountResponse> ActiveVendorAccounts => Set<GetActiveVendorAccountResponse>();
+    public DbSet<GetActiveVendorAccountQueryResult> ActiveVendorAccounts => Set<GetActiveVendorAccountQueryResult>();
 }

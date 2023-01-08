@@ -55,7 +55,7 @@ public class PaymentGatewayController: ControllerBase
             return Results.BadRequest("Required headers missing.");
         }
 
-        var request = new GetActiveVendorAccountRequest(vendorId, correlationId);
+        var request = new GetActiveVendorAccountQuery(vendorId, correlationId);
         var response = await _mediator.Send(request, cancellationToken);
 
         return Results.Ok(new { response.PublicKey });

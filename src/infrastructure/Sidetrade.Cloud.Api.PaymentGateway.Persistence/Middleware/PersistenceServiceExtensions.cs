@@ -18,7 +18,7 @@ public static class PersistenceServiceExtensions
                 .LogTo(message => Debug.WriteLine(message))
                 .UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext"));
         });
-        services.AddScoped<IVendorAccountReadOnlyRepository, VendorAccountReadOnlyRepository>();
+        services.AddScoped<IVendorAccountQueryRepository, VendorAccountQueryRepository>();
         return services;
     }
 }

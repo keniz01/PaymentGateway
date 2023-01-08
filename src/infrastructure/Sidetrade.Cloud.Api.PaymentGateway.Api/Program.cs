@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(VendorIdValidator));
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddScoped<IRequestHandler<GetActiveVendorAccountRequest, GetActiveVendorAccountResponse>, GetActiveVendorAccountRequestHandler>();
+builder.Services.AddScoped<IRequestHandler<GetActiveVendorAccountQuery, GetActiveVendorAccountQueryResult>, GetActiveVendorAccountRequestHandler>();
 builder.Services.AddRateLimiting();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

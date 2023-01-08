@@ -17,10 +17,10 @@ public class PaymentGatewayControllerTests
 
     [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
-    public async Task GetActiveVendorAccountAsync_should_return_vendor_account_from_vendor_id()
+    public async Task GetActiveVendorAccountAsync_should_return_true_status_success_code()
     {        
         var client = _webApplicationFactory.CreateClient();
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "433217");
+        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "448058");
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
         var response = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
         response.IsSuccessStatusCode.Should().BeTrue();
@@ -31,7 +31,7 @@ public class PaymentGatewayControllerTests
     public async Task GetActiveVendorAccountAsync_should_return_valid_public_key()
     {        
         var client = _webApplicationFactory.CreateClient();
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "459111");
+        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "378406");
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, "3b32bbea-642f-4959-b5cb-23d8eab0376b");
         var responseMessage = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
         var httpContent = await responseMessage.Content.ReadAsStringAsync();
