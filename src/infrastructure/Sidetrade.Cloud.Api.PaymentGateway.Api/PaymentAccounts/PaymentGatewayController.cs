@@ -3,8 +3,9 @@ using AutoMapper;
 using System.ComponentModel.DataAnnotations;
 using Swashbuckle.AspNetCore.Annotations;
 using MediatR;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using System.Net.Mime;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 
@@ -28,6 +29,45 @@ public class PaymentGatewayController: ControllerBase
 
     [SwaggerOperation
     (
+        Summary = "Creates a new vendor payment gateway account.",
+        Description = "Creates a new vendor payment gateway account.",
+        OperationId = "CreateVendorAccountAsync",
+        Tags = new[] { "Payment Gateway" }
+     )]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPost("vendor-account")]
+    public async Task<IResult> CreateVendorAccountAsync(
+        [FromHeader(Name = HttpRequestHeaderNameConstants.VENDOR_ID)][Required] int vendorId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.META_VENDOR_ID)][Required] int metaVendorId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)][Required] Guid correlationId,
+        [FromBody]CreateVendorAccountRequest request,
+        CancellationToken cancellationToken)
+    {
+        if(!(new VendorIdValidator().Validate(vendorId).IsValid 
+            || new CorrelationIdValidator().Validate(correlationId).IsValid)
+        )
+        {
+            return Results.BadRequest("Required headers missing.");
+        }
+
+        var command = new CreateVendorAccountCommand(correlationId)
+        {
+            VendorId = vendorId,
+            MetaVendorId = metaVendorId,
+            PublicKey = request.PublicKey,
+            SecretKey = request.SecretKey,
+            IsActivated = request.IsActivated
+        };
+
+        await _mediator.Send(command, cancellationToken);
+
+        return Results.Ok(new { IsVendorAcountCreated = true });
+    }    
+
+    [SwaggerOperation
+    (
         Summary = "Gets an active vendor payment gateway account",
         Description = "Gets an active vendor payment gateway account",
         OperationId = "GetActiveVendorAccountAsync",
@@ -36,7 +76,7 @@ public class PaymentGatewayController: ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("account")]
+    [HttpGet("vendor-account")]
     public async Task<IResult> GetActiveVendorAccountAsync(
         [FromHeader(Name = HttpRequestHeaderNameConstants.VENDOR_ID)]
         [Required]
@@ -46,11 +86,8 @@ public class PaymentGatewayController: ControllerBase
         Guid correlationId,
         CancellationToken cancellationToken)
     {
-
-        if(!(
-            new VendorIdValidator().Validate(vendorId).IsValid
-            || new CorrelationIdValidator().Validate(correlationId).IsValid)
-        )
+        if(!(new VendorIdValidator().Validate(vendorId).IsValid
+            || new CorrelationIdValidator().Validate(correlationId).IsValid))
         {
             return Results.BadRequest("Required headers missing.");
         }

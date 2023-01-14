@@ -1,13 +1,11 @@
-﻿using System.Reflection;
-using System.Threading.RateLimiting;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
 using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,10 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(VendorIdValidator));
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddScoped<IRequestHandler<GetActiveVendorAccountQuery, GetActiveVendorAccountQueryResult>, GetActiveVendorAccountRequestHandler>();
 builder.Services.AddRateLimiting();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
