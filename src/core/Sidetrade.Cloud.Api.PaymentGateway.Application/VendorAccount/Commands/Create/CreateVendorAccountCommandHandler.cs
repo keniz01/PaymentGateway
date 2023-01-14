@@ -1,19 +1,9 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.GetActiveVendorAccount.Commands.Create
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create
 {
-    public class CreateVendorAccountCommand: CommandBase
-	{
-		public CreateVendorAccountCommand(Guid correlationId)
-			: base(correlationId)
-		{
-		}
-
-        public required int VendorId { get; set; }
-    }
-
     public class CreateVendorAccountCommandHandler : CommandHandlerBase<CreateVendorAccountCommand>
     {
         private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;

@@ -9,10 +9,12 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Shared
         {
         }
     }
+
+    public abstract class CommandBase<TResult>: CorrelationIdBase, IRequest<TResult>
+    {
+        public CommandBase(Guid correlationId) : base(correlationId)
+        {
+        }
+    }
 }
-
-//string dbConnectionString = this.Configuration.GetConnectionString("dbConnection1");
-
-//// Inject IDbConnection, with implementation from SqlConnection class.
-//services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
 

@@ -16,10 +16,22 @@
     <None Remove="GetActiveVendorAccount\Commands\" />
     <None Remove="GetActiveVendorAccount\Commands\Create\" />
     <None Remove="GetActiveVendorAccount\Commands\Update\" />
+    <None Remove="Dapper" />
+    <None Remove="Microsoft.Extensions.Configuration" />
+    <None Remove="Npgsql.ConfigureConnection" />
+    <None Remove="Npgsql" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Scrutor" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Npgsql.ConfigureConnection" Version="0.1.1" />
+    <PackageReference Include="Npgsql" Version="7.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Scrutor" Version="4.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj" />

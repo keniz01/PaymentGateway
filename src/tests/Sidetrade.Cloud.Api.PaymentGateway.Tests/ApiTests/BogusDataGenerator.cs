@@ -1,33 +1,29 @@
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using Bogus;
 using Microsoft.AspNetCore.DataProtection;
-using AutoBogus;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
 public class BogusDataGenerator
+{
+    public static IList<VendorAccount> Generate()
     {
-        public static IList<GetActiveVendorAccountQueryResult> Generate()
-        {
-            var provider = DataProtectionProvider
-                .Create(typeof(PaymentGatewayControllerTests).Assembly.GetName().FullName)
-                .CreateProtector("PAYMENT_GATEWAY_SECRET_KEY");
+        var provider = DataProtectionProvider
+            .Create(typeof(PaymentGatewayControllerTests).Assembly.GetName().FullName)
+            .CreateProtector("PAYMENT_GATEWAY_SECRET_KEY");
 
-            Randomizer.Seed = new Random(1);
-        var faker = new Faker<GetActiveVendorAccountQueryResult>()
-            .CustomInstantiator(faker => 
+        Randomizer.Seed = new Random(1);
+        var faker = new Faker<VendorAccount>()
+            .Rules((faker, account) =>
             {
-                return GetActiveVendorAccountQueryResult.Create
-                (
-                    correlationId: faker.Random.Guid(),
-                    vendorId: faker.Random.Number(300000, 699999),
-                    metaVendorId: faker.Random.Number(300000, 699999),
-                    secretKey: provider.Protect($"sk_test_{faker.Random.AlphaNumeric(25)}"),
-                    publicKey: $"pk_test_{faker.Random.AlphaNumeric(25)}",
-                    isActivated: faker.Random.Bool(1)
-                );
+                account.VendorId = faker.Random.Number(300000, 699999);
+                account.MetaVendorId = faker.Random.Number(300000, 699999);
+                account.SecretKey = provider.Protect($"sk_test_{faker.Random.AlphaNumeric(25)}");
+                account.PublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}";
+                account.IsActivated = faker.Random.Bool(1);
             });
 
-            return faker.GenerateBetween(10, 10);
-        }
+        return faker.GenerateBetween(10, 10);
     }
+}

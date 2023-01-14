@@ -1,6 +1,6 @@
 ﻿using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 
 /// <summary>
 /// Request to get a vendor payment account by vendor id.
