@@ -7,17 +7,17 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 public sealed class VendorAccount
 {
     [Key]
-    [Column("vendor_id")]
-    public int VendorId { get; set; }
+    [Column("member_id")]
+    public int MemberId { get; set; }
 
     [Column("meta_member_id")]
-    public int? MetaVendorId { get; set; }
+    public int MetaMemberId { get; set; }
 
-    [Column("secret_key")]
-    public string SecretKey { get; set; } = string.Empty;
+    [Column("api_secret_key")]
+    public string ApiSecretKey { get; set; } = string.Empty;
 
-    [Column("public_key")]
-    public string PublicKey { get; set; } = string.Empty;
+    [Column("api_public_key")]
+    public string ApiPublicKey { get; set; } = string.Empty;
 
     [Column("is_activated")]
     public bool IsActivated { get; set; }

@@ -17,10 +17,10 @@ public class BogusDataGenerator
         var faker = new Faker<VendorAccount>()
             .Rules((faker, account) =>
             {
-                account.VendorId = faker.Random.Number(300000, 699999);
-                account.MetaVendorId = faker.Random.Number(300000, 699999);
-                account.SecretKey = provider.Protect($"sk_test_{faker.Random.AlphaNumeric(25)}");
-                account.PublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}";
+                account.MemberId = faker.Random.Number(300000, 699999);
+                account.MetaMemberId = faker.Random.Number(300000, 699999);
+                account.ApiSecretKey = provider.Protect($"sk_test_{faker.Random.AlphaNumeric(25)}");
+                account.ApiPublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}";
                 account.IsActivated = faker.Random.Bool(1);
             });
 

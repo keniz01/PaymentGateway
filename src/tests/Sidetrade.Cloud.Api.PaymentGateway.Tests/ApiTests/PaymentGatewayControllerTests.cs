@@ -22,11 +22,11 @@ public class PaymentGatewayControllerTests
 
     [Test(Description = "CreateVendorAccountAsync - Creates a new vendor account.")]
     [Category("PaymentGatewayController")]
-    public async Task CreateVendorAccountAsync_Should_create_new_vendor_account()
+    public async Task PaymentGatewayController_CreateVendorAccountAsync_Should_create_new_vendor_account()
     {        
         var client = _webApplicationFactory.CreateClient();
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.META_VENDOR_ID, "448058");
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "448058");
+        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.META_MEMBER_ID, "448058");
+        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.MEMBER_ID, "448058");
         client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
         
         var payLoad = new 
@@ -42,6 +42,7 @@ public class PaymentGatewayControllerTests
             PaymentGatewayControllerApiEndpointConstants.CREATE_VENDOR_ACCOUNT,
             content,
             CancellationToken.None);
+            
         response.IsSuccessStatusCode.Should().BeTrue();
     }
 

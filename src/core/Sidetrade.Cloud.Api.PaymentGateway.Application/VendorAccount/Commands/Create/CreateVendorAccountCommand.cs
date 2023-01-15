@@ -9,10 +9,10 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.
 		{
 		}
 
-        public required int VendorId { get; set; }
-        public int MetaVendorId { get; set; }
-        public required string PublicKey { get; set; }
-        public required string SecretKey { get; set; }
+        public required int MemberId { get; set; }
+        public int MetaMemberId { get; set; }
+        public required string ApiPublicKey { get; set; }
+        public required string ApiSecretKey { get; set; }
         public required bool IsActivated { get; set; }
     }
 

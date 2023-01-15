@@ -39,13 +39,13 @@ public class PaymentGatewayController: ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("vendor-account")]
     public async Task<IResult> CreateVendorAccountAsync(
-        [FromHeader(Name = HttpRequestHeaderNameConstants.VENDOR_ID)][Required] int vendorId,
-        [FromHeader(Name = HttpRequestHeaderNameConstants.META_VENDOR_ID)][Required] int metaVendorId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)][Required] int memberId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)][Required] int metaMemberId,
         [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)][Required] Guid correlationId,
         [FromBody]CreateVendorAccountRequest request,
         CancellationToken cancellationToken)
     {
-        if(!(new VendorIdValidator().Validate(vendorId).IsValid 
+        if(!(new VendorIdValidator().Validate(memberId).IsValid 
             || new CorrelationIdValidator().Validate(correlationId).IsValid)
         )
         {
@@ -54,10 +54,10 @@ public class PaymentGatewayController: ControllerBase
 
         var command = new CreateVendorAccountCommand(correlationId)
         {
-            VendorId = vendorId,
-            MetaVendorId = metaVendorId,
-            PublicKey = request.PublicKey,
-            SecretKey = request.SecretKey,
+            MemberId = memberId,
+            MetaMemberId = metaMemberId,
+            ApiPublicKey = request.PublicKey,
+            ApiSecretKey = request.SecretKey,
             IsActivated = request.IsActivated
         };
 
@@ -78,7 +78,7 @@ public class PaymentGatewayController: ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("vendor-account")]
     public async Task<IResult> GetActiveVendorAccountAsync(
-        [FromHeader(Name = HttpRequestHeaderNameConstants.VENDOR_ID)]
+        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)]
         [Required]
         int vendorId,
         [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)]

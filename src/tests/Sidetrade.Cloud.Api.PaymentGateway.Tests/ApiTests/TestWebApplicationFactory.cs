@@ -6,73 +6,55 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
-using System.Text;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
     {
-        private readonly SqliteConnection _connection;
-        public TestWebApplicationFactory()
-        {
-            _connection = new SqliteConnection("datasource=:memory:");
-            _connection.Open();
-        }
-
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            var connection = new SqliteConnection("Data Source=:memory:");
+            connection.Open();
+            
             base.ConfigureWebHost(builder);
             builder.ConfigureServices(services =>
-            {
+            {                
                 services.AddDataProtection();
+
                 var contextDescriptor = services.SingleOrDefault(descriptor => 
                     descriptor.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
-
                 services.Remove(contextDescriptor!);
 
                 var connectionDescriptor = services.SingleOrDefault(descriptor => 
-                    descriptor.ServiceType == typeof(DbConnection));
-                    
+                    descriptor.ServiceType == typeof(DbConnection));                    
                 services.Remove(connectionDescriptor!);
-                
-                // services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(_dbName));
 
-                var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseSqlite(_connection)
-                    .EnableDetailedErrors()
-                    .EnableSensitiveDataLogging()
-                    .LogTo(message => Debug.WriteLine(message))
-                    .Options;
+                // https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/in-memory-databases
+                // https://learn.microsoft.com/en-us/ef/core/testing/choosing-a-testing-strategy
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    {
+                        options.UseSqlite(connection)
+                            .EnableDetailedErrors()
+                            .EnableSensitiveDataLogging()
+                            .LogTo(message => Debug.WriteLine(message));
+                    });   
 
-                var context = new ApplicationDbContext(options);
+                var provider = services.BuildServiceProvider();
+                using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+                using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                var sqlQuery = new StringBuilder("INSERT INTO vendor_account ")
-                    .AppendLine("(vendor_id,meta_member_id,secret_key,public_key,is_activated,date_created,date_updated) ")
-                    .AppendLine("VALUES (@vendor_id,@meta_member_id,@secret_key,@public_key,@is_activated,@date_created,@date_updated);")
-                    .ToString();
-                
                 var fakeData = BogusDataGenerator.Generate();
+
                 foreach(var command in fakeData)
                 {
-                    var parameters = new List<SqliteParameter>
-                    {
-                        new SqliteParameter("@vendor_id", command.VendorId),
-                        new SqliteParameter("@meta_member_id", command.MetaVendorId),
-                        new SqliteParameter("@secret_key", command.SecretKey),
-                        new SqliteParameter("@public_key", command.PublicKey),
-                        new SqliteParameter("@is_activated", command.IsActivated),
-                        new SqliteParameter("@date_created", DateTime.UtcNow),
-                        new SqliteParameter("@date_updated", DateTime.UtcNow)
-                    };
-
-                    context.Database.ExecuteSqlRaw(sqlQuery, parameters);
-                    context.SaveChanges();
+                    context.VendorAccounts.Add(command);                    
                 }
-                _connection.Close();
+
+                context.SaveChanges();
             });
 
-            builder.UseEnvironment("Development");
+            builder.UseEnvironment("Testing");
         }
     }
