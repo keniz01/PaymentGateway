@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.2
@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.Payment
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Application", "src\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj", "{22CF1604-7591-47D9-8AD0-957E536CA0D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Persistence", "src\infrastructure\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj", "{4267F07A-1D34-456C-9E1C-F2C7CECF3965}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Persistence", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj", "{4267F07A-1D34-456C-9E1C-F2C7CECF3965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Api", "src\infrastructure\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj", "{E044063A-5F9E-47E4-8762-CBADA7965A48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Api", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj", "{E044063A-5F9E-47E4-8762-CBADA7965A48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{79214082-53A1-4699-9FA7-394F9A7070DA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{1F7F4FAE-5B3B-4800-9655-5F7321A18894}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{1F7F4FAE-5B3B-4800-9655-5F7321A18894}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{58A6E8E6-B68F-44B3-AA60-80210F71EABD}"
 EndProject

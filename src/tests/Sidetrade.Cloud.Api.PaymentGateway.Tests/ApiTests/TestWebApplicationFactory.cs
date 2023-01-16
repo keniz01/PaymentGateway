@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
+using System.Data;
+using Sidetrade.Cloud.Api.PaymentGateway.Api;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
@@ -13,7 +15,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            var connection = new SqliteConnection("Data Source=:memory:");
+            var connection = new SqliteConnection("Data Source=InMemoryTestDb;Mode=Memory;Cache=Shared");
             connection.Open();
             
             base.ConfigureWebHost(builder);
@@ -39,6 +41,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                             .LogTo(message => Debug.WriteLine(message));
                     });   
 
+                services.AddTransient<IDbConnection>(options => connection);
                 var provider = services.BuildServiceProvider();
                 using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

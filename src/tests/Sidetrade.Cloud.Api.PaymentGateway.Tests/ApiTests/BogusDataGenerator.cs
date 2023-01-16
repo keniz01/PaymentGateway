@@ -1,4 +1,4 @@
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
+
 using Bogus;
 using Microsoft.AspNetCore.DataProtection;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;

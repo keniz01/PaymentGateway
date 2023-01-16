@@ -1,83 +1,94 @@
 ﻿using FluentAssertions;
-using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 using System.Text;
 using System.Text.Json;
 using System.Net.Mime;
 using Bogus;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
+using System.Net;
+using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
 [TestFixture]
 public class PaymentGatewayControllerTests
 {
-    private TestWebApplicationFactory _webApplicationFactory = null!;
-    private Faker _faker = null!;
+    private HttpClient _client = null!;
 
     [SetUp]
     public void Setup()
     {
-        _webApplicationFactory = new TestWebApplicationFactory();
-        _faker = new Faker();
+        var webApplicationFactory = new TestWebApplicationFactory();
+        _client = webApplicationFactory.CreateClient();
+        _client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.META_MEMBER_ID, "448058");
+        _client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.MEMBER_ID, "448058");
+        _client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
     }
 
     [Test(Description = "CreateVendorAccountAsync - Creates a new vendor account.")]
     [Category("PaymentGatewayController")]
     public async Task PaymentGatewayController_CreateVendorAccountAsync_Should_create_new_vendor_account()
     {        
-        var client = _webApplicationFactory.CreateClient();
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.META_MEMBER_ID, "448058");
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.MEMBER_ID, "448058");
-        client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
+        var response = await CreateVendorAccountAsync();
+        response.IsSuccessStatusCode.Should().BeTrue();
+    }
+
+    [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
+    [Category("PaymentGatewayController")]
+    public async Task GetActiveVendorAccountAsync_should_return_true_status_success_code()
+    {        
+        await CreateVendorAccountAsync();
+        var responseMessage = await GetVendorAccountResponseMesssageAsync();
+        responseMessage.EnsureSuccessStatusCode();
+        responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
+    [Category("PaymentGatewayController")]
+    public async Task GetActiveVendorAccountAsync_should_return_valid_public_key()
+    {        
+        await CreateVendorAccountAsync();
+        var responseMessage = await GetVendorAccountResponseMesssageAsync();
+        responseMessage.EnsureSuccessStatusCode();
         
+        var jsonContent = await responseMessage.Content.ReadAsStringAsync();
+        var vendorAccount = JsonSerializer.Deserialize<GetVendorAccountResponse>(jsonContent,
+        new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        }) ?? new GetVendorAccountResponse(string.Empty);
+
+        vendorAccount.ApiPublicKey.Should().NotBeEmpty();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        _client.Dispose();
+        _client = null!;
+    }
+
+    private async Task<HttpResponseMessage> GetVendorAccountResponseMesssageAsync()
+    {
+        var response = await _client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
+        return response;
+    }
+
+    private async Task<HttpResponseMessage> CreateVendorAccountAsync()
+    {
+        var faker = new Faker();
         var payLoad = new 
         {
-            PublicKey = $"pk_test_{_faker.Random.AlphaNumeric(25)}",
-            SecretKey = $"sk_test_{_faker.Random.AlphaNumeric(25)}",
+            PublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}",
+            SecretKey = $"sk_test_{faker.Random.AlphaNumeric(25)}",
             IsActivated = true
         };
         var json = JsonSerializer.Serialize<dynamic>(payLoad);
         var content = new StringContent(json, Encoding.Default, MediaTypeNames.Application.Json);
         
-        var response = await client.PostAsync(
+        var response = await _client.PostAsync(
             PaymentGatewayControllerApiEndpointConstants.CREATE_VENDOR_ACCOUNT,
             content,
             CancellationToken.None);
-            
-        response.IsSuccessStatusCode.Should().BeTrue();
-    }
-
-    // [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
-    // [Category("PaymentGatewayController")]
-    // public async Task GetActiveVendorAccountAsync_should_return_true_status_success_code()
-    // {        
-    //     var client = _webApplicationFactory.CreateClient();
-    //     client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "448058");
-    //     client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, Guid.NewGuid().ToString());
-    //     var response = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
-    //     response.IsSuccessStatusCode.Should().BeTrue();
-    // }
-
-    // [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
-    // [Category("PaymentGatewayController")]
-    // public async Task GetActiveVendorAccountAsync_should_return_valid_public_key()
-    // {        
-    //     var client = _webApplicationFactory.CreateClient();
-    //     client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.VENDOR_ID, "378406");
-    //     client.DefaultRequestHeaders.Add(HttpRequestHeaderNameConstants.CORRELATION_ID, "3b32bbea-642f-4959-b5cb-23d8eab0376b");
-    //     var responseMessage = await client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
-    //     var httpContent = await responseMessage.Content.ReadAsStringAsync();
-    //     var response = JsonSerializer.Deserialize<ActiveVendorAccount>(httpContent, 
-    //         new JsonSerializerOptions
-    //         {
-    //             PropertyNameCaseInsensitive = true
-    //         })!;
-    //     response.PublicKey.Should().NotBeEmpty();
-    // }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _webApplicationFactory.Dispose();
-        _webApplicationFactory = null!;
+        return response;
     }
 }

@@ -19,10 +19,14 @@ public class GetActiveVendorAccountRequestHandler : QueryHandlerBase<GetActiveVe
 
     public override async Task<GetActiveVendorAccountQueryResult> Handle(GetActiveVendorAccountQuery request, CancellationToken cancellationToken)
     {
-        var sqlQuery = "SELECT * FROM vendor_account WHERE vendor_id = @vendor_id";
-        var parameters = new DynamicParameters();
-        parameters.Add("@vendor_id", request.VendorId, DbType.Int32);
-        var result = await _connection.QueryFirstOrDefaultAsync<GetActiveVendorAccountQueryResult>(sqlQuery, parameters);
-        return result;
+        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+        var sqlQuery = "SELECT * FROM vendor_account WHERE member_id = @MemberId";
+        
+        var result = await _connection.QueryFirstOrDefaultAsync<GetActiveVendorAccountQueryResult>
+        (
+            sqlQuery, 
+            new { request.MemberId }
+        );
+        return result ?? GetActiveVendorAccountQueryResult.Unknown(request.CorrelationId);
     }
 }

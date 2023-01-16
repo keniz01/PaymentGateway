@@ -14,7 +14,7 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/payment-gateway")]
-public class PaymentGatewayController: ControllerBase
+public partial class PaymentGatewayController: ControllerBase
 {
     private readonly ILogger<PaymentGatewayController> _logger;
     private readonly IMapper _mapper;
@@ -80,21 +80,24 @@ public class PaymentGatewayController: ControllerBase
     public async Task<IResult> GetActiveVendorAccountAsync(
         [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)]
         [Required]
-        int vendorId,
+        int memberId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)]
+        [Required]
+        int metaMemberId,        
         [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)]
         [Required]
         Guid correlationId,
         CancellationToken cancellationToken)
     {
-        if(!(new VendorIdValidator().Validate(vendorId).IsValid
+        if(!(new VendorIdValidator().Validate(memberId).IsValid
             || new CorrelationIdValidator().Validate(correlationId).IsValid))
         {
             return Results.BadRequest("Required headers missing.");
         }
 
-        var request = new GetActiveVendorAccountQuery(vendorId, correlationId);
+        var request = new GetActiveVendorAccountQuery(memberId, correlationId);
         var response = await _mediator.Send(request, cancellationToken);
 
-        return Results.Ok(new { response.PublicKey });
+        return Results.Ok(new { response.ApiPublicKey });
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-using Npgsql;
 using MapsterMapper;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;

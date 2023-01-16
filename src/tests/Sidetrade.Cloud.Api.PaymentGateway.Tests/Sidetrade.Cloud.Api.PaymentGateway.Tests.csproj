@@ -45,6 +45,7 @@
     <Folder Include="Sidetrade.Cloud.Api.PaymentGateway.Domain.Tests\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\infrastructure\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj" />
+    <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />
+    <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj" />
   </ItemGroup>
 </Project>

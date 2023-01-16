@@ -11,44 +11,44 @@ public class GetActiveVendorAccountQueryResult: ResultBase
 
     private GetActiveVendorAccountQueryResult(Guid correlationId) : base(correlationId) { }
 
-    private GetActiveVendorAccountQueryResult(Guid correlationId, int vendorId,
-        int? metaVendorId, string secretKey, string publicKey, bool isActivated)
+    private GetActiveVendorAccountQueryResult(Guid correlationId, int memberId,
+        int? metaMemberId, string apiSecretKey, string apiPublicKey, bool isActivated)
         : base(correlationId)
     {
-        VendorId = vendorId;
-        MetaVendorId = metaVendorId;
-        SecretKey = secretKey;
-        PublicKey = publicKey;
+        MemberId = memberId;
+        MetaMemberId = metaMemberId;
+        ApiSecretKey = apiSecretKey;
+        ApiPublicKey = apiPublicKey;
         IsActivated = isActivated;
     }
 
-    public int VendorId { get; protected set; }
-    public int? MetaVendorId { get; protected set; }
-    public string SecretKey { get; protected set; } = string.Empty;
-    public string PublicKey { get; protected set; } = string.Empty;
+    public int MemberId { get; protected set; }
+    public int? MetaMemberId { get; protected set; }
+    public string ApiSecretKey { get; protected set; } = string.Empty;
+    public string ApiPublicKey { get; protected set; } = string.Empty;
     public bool IsActivated { get; protected set; }
 
     public static GetActiveVendorAccountQueryResult Create(Guid correlationId,
-        int vendorId, int? metaVendorId, string secretKey, string publicKey, bool isActivated)
+        int memberId, int? metaMemberId, string apiSecretKey, string apiPublicKey, bool isActivated)
     {
-        if(vendorId < 1)
+        if(memberId < 1)
         {
-            return new GetActiveVendorAccountQueryResultUnknown(correlationId);
+            return new UnknowVendorAccount(correlationId);
         }
 
-        return new GetActiveVendorAccountQueryResult(correlationId, vendorId, metaVendorId, secretKey, publicKey, isActivated);
+        return new GetActiveVendorAccountQueryResult(correlationId, memberId, metaMemberId, apiSecretKey, apiPublicKey, isActivated);
     }
 
-    public static GetActiveVendorAccountQueryResult Unknown(Guid correlationId)
+    public static UnknowVendorAccount Unknown(Guid correlationId)
     {
-        throw new NotImplementedException();
+        return new UnknowVendorAccount(correlationId);
     }
 
-    public override string ToString() => $"{VendorId} | {MetaVendorId} | {SecretKey} | {PublicKey} | {IsActivated}";
+    public override string ToString() => $"{MemberId} | {MetaMemberId} | {ApiSecretKey} | {ApiPublicKey} | {IsActivated}";
 
-    public class GetActiveVendorAccountQueryResultUnknown : GetActiveVendorAccountQueryResult
+    public class UnknowVendorAccount : GetActiveVendorAccountQueryResult
     {
-        public GetActiveVendorAccountQueryResultUnknown(Guid correlationId) : base(correlationId)
+        public UnknowVendorAccount(Guid correlationId) : base(correlationId)
         {
         }
     }
