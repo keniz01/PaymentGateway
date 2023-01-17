@@ -1,24 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using System.ComponentModel.DataAnnotations;
-using Swashbuckle.AspNetCore.Annotations;
-using MediatR;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
+using MapsterMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 
 [Consumes(MediaTypeNames.Application.Json)]
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/payment-gateway")]
-public partial class PaymentGatewayController: ControllerBase
+public class PaymentGatewayController: ControllerBase
 {
     private readonly ILogger<PaymentGatewayController> _logger;
-    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
     public PaymentGatewayController(ILogger<PaymentGatewayController> logger, IMapper mapper, IMediator mediator)
     {

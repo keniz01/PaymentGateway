@@ -6,6 +6,7 @@ using Bogus;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using System.Net;
 using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 

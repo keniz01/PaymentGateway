@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{58A6E8E6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Tests", "src\tests\Sidetrade.Cloud.Api.PaymentGateway.Tests\Sidetrade.Cloud.Api.PaymentGateway.Tests.csproj", "{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Presentation", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Presentation\Sidetrade.Cloud.Api.PaymentGateway.Presentation.csproj", "{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{4267F07A-1D34-456C-9E1C-F2C7CECF3965} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 		{E044063A-5F9E-47E4-8762-CBADA7965A48} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6} = {58A6E8E6-B68F-44B3-AA60-80210F71EABD}
+		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 	EndGlobalSection
 EndGlobal
