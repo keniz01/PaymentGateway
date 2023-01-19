@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 
@@ -7,13 +9,30 @@ public class LogRequestContextMiddleware
     private readonly RequestDelegate _next;
     private readonly ILogger<LogRequestContextMiddleware> _logger;
 
-    public LogRequestContextMiddleware(RequestDelegate next, ILogger<LogRequestContextMiddleware> logger)
+    public LogRequestContextMiddleware(
+        RequestDelegate next,
+        ILogger<LogRequestContextMiddleware> logger)
     {
         _next = next;
         _logger = logger;
     }
 
-    public Task InvokeAsync(HttpContext context)
+    public Task InvokeAsync(HttpContext context, ICorrelationIdGenerator correlationIdGenerator)
+    {        
+        var correlationId = GetCorrelationId(context, correlationIdGenerator);
+        AddCorrelationIdHeaderToResponse(context, correlationId);
+
+        var timer = new Stopwatch();
+        timer.Start();
+        _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTime.UtcNow);
+        
+        var response = _next(context);
+        
+        _logger.LogInformation("********* Request Id: {CorrelationId} completed after {TimeElapsed} ms. *********", correlationId.ToString(), timer.ElapsedMilliseconds);
+        return response;
+    }
+
+    private static Guid GetCorrelationId(HttpContext context, ICorrelationIdGenerator correlationIdGenerator)
     {
         var correlationId = Guid.Empty;
         var correlationIdHeaderValue = context.Request.Headers
@@ -26,13 +45,19 @@ public class LogRequestContextMiddleware
             || correlationId == Guid.Empty)
         {
             correlationId = Guid.NewGuid();
-            context
-                .Response
-                .Headers
-                .Add(HttpRequestHeaderNameConstants.CORRELATION_ID, correlationId.ToString());
         }
 
-        _logger.LogInformation("********* {LogData}: Request for {CorrelationId}", DateTime.UtcNow, correlationId.ToString());
-        return _next(context);
+        correlationIdGenerator.Set(correlationId);
+        return correlationId;
     }
+
+    private static void AddCorrelationIdHeaderToResponse(HttpContext context, Guid correlationId)
+        => context.Response.OnStarting(() =>
+            {
+                context
+                    .Response
+                    .Headers
+                    .Add(HttpRequestHeaderNameConstants.CORRELATION_ID, correlationId.ToString());
+                return Task.CompletedTask;
+            });
 }

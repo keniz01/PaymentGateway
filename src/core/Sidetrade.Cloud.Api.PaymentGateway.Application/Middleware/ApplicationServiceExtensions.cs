@@ -5,6 +5,7 @@ using Npgsql;
 using System.Reflection;
 using MediatR;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 
@@ -15,14 +16,7 @@ public static class ApplicationServiceExtensions
         services.AddTransient<IDbConnection>(connection => 
             new NpgsqlConnection(configuration.GetConnectionString("PaymentGatewayContext")));
 
-        // services.Scan(selector =>
-        // {
-        //     selector
-        //         .FromCallingAssembly()
-        //         .AddClasses(filter => filter.AssignableTo(typeof(IRequestHandler<,>)))
-        //         .AsImplementedInterfaces()
-        //         .WithScopedLifetime();
-        // });
+        services.AddScoped<ICorrelationIdGenerator, CorrelationIdGenerator>();
         services.AddMediatR(typeof(CreateVendorAccountCommandHandler).GetTypeInfo().Assembly);
         return services;
     } 

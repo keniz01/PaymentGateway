@@ -3,9 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Net.Mime;
 using Bogus;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using System.Net;
-using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
@@ -33,9 +31,9 @@ public class PaymentGatewayControllerTests
         response.IsSuccessStatusCode.Should().BeTrue();
     }
 
-    [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
+    [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
-    public async Task GetActiveVendorAccountAsync_should_return_true_status_success_code()
+    public async Task GetVendorAccountAsync_should_return_true_status_success_code()
     {        
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
@@ -43,9 +41,9 @@ public class PaymentGatewayControllerTests
         responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    [Test(Description = "GetActiveVendorAccountAsync - Returns a valid public key")]
+    [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
-    public async Task GetActiveVendorAccountAsync_should_return_valid_public_key()
+    public async Task GetVendorAccountAsync_should_return_valid_public_key()
     {        
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();

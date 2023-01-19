@@ -23,7 +23,7 @@ Masstransit/RabbitMQ (Saga pattern)
 
 Patterns
 --------
-Specification (Domain-level)
-CQRS (Architecture)
-CQS (Design)
+1) Specification (Domain-level)
+2) CQRS (Architecture)
+3) CQS (Design)
 

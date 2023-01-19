@@ -54,14 +54,14 @@ public class PaymentGatewayController: ControllerBase
             return Results.BadRequest("Required headers missing.");
         }
 
-        var command = new CreateVendorAccountCommand(correlationId)
-        {
-            MemberId = memberId,
-            MetaMemberId = metaMemberId,
-            ApiPublicKey = request.PublicKey,
-            ApiSecretKey = request.SecretKey,
-            IsActivated = request.IsActivated
-        };
+        var command = new CreateVendorAccountCommand
+        (
+            memberId,
+            metaMemberId,
+            request.PublicKey,
+            request.SecretKey,
+            request.IsActivated
+        );
 
         await _mediator.Send(command, cancellationToken);
 
@@ -70,16 +70,16 @@ public class PaymentGatewayController: ControllerBase
 
     [SwaggerOperation
     (
-        Summary = "Gets an active vendor payment gateway account",
-        Description = "Gets an active vendor payment gateway account",
-        OperationId = "GetActiveVendorAccountAsync",
+        Summary = "Gets an vendor payment gateway account",
+        Description = "Gets an vendor payment gateway account",
+        OperationId = "GetVendorAccountAsync",
         Tags = new[] { "Payment Gateway" }
      )]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("vendor-account")]
-    public async Task<IResult> GetActiveVendorAccountAsync(
+    public async Task<IResult> GetVendorAccountAsync(
         [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)]
         [Required]
         int memberId,
@@ -97,7 +97,7 @@ public class PaymentGatewayController: ControllerBase
             return Results.BadRequest("Required headers missing.");
         }
 
-        var request = new GetActiveVendorAccountQuery(memberId, correlationId);
+        var request = new GetVendorAccountQuery(memberId);
         var response = await _mediator.Send(request, cancellationToken);
 
         return Results.Ok(new { response.ApiPublicKey });
