@@ -17,9 +17,9 @@ public class LogRequestContextMiddleware
         _logger = logger;
     }
 
-    public Task InvokeAsync(HttpContext context, ICorrelationIdGenerator correlationIdGenerator)
+    public Task InvokeAsync(HttpContext context, ICorrelationIdHelper correlationIdHelper)
     {        
-        var correlationId = GetCorrelationId(context, correlationIdGenerator);
+        var correlationId = GetCorrelationId(context, correlationIdHelper);
         AddCorrelationIdHeaderToResponse(context, correlationId);
 
         var timer = new Stopwatch();
@@ -32,7 +32,7 @@ public class LogRequestContextMiddleware
         return response;
     }
 
-    private static Guid GetCorrelationId(HttpContext context, ICorrelationIdGenerator correlationIdGenerator)
+    private static Guid GetCorrelationId(HttpContext context, ICorrelationIdHelper correlationIdHelper)
     {
         var correlationId = Guid.Empty;
         var correlationIdHeaderValue = context.Request.Headers
@@ -47,7 +47,7 @@ public class LogRequestContextMiddleware
             correlationId = Guid.NewGuid();
         }
 
-        correlationIdGenerator.Set(correlationId);
+        correlationIdHelper.Set(correlationId);
         return correlationId;
     }
 

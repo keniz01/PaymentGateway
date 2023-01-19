@@ -1,6 +1,6 @@
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
 
-public class CorrelationIdGenerator: ICorrelationIdGenerator
+public class CorrelationIdHelper: ICorrelationIdHelper
 {
     private Guid _correlationId;
 

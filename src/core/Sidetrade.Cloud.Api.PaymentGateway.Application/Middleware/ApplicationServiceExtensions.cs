@@ -16,7 +16,7 @@ public static class ApplicationServiceExtensions
         services.AddTransient<IDbConnection>(connection => 
             new NpgsqlConnection(configuration.GetConnectionString("PaymentGatewayContext")));
 
-        services.AddScoped<ICorrelationIdGenerator, CorrelationIdGenerator>();
+        services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
         services.AddMediatR(typeof(CreateVendorAccountCommandHandler).GetTypeInfo().Assembly);
         return services;
     } 
