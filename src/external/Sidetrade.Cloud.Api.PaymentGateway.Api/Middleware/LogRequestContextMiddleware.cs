@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 

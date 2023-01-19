@@ -5,7 +5,8 @@ using Npgsql;
 using System.Reflection;
 using MediatR;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 
@@ -18,6 +19,7 @@ public static class ApplicationServiceExtensions
 
         services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
         services.AddMediatR(typeof(CreateVendorAccountCommandHandler).GetTypeInfo().Assembly);
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
         return services;
     } 
 }

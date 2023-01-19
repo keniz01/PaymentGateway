@@ -1,4 +1,4 @@
-﻿using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
+﻿using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Commands;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create
 {

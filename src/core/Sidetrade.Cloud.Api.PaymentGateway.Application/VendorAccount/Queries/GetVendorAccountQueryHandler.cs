@@ -1,5 +1,5 @@
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Queries;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 

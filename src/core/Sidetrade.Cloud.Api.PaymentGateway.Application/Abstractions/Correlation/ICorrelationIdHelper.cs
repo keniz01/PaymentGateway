@@ -1,4 +1,4 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Shared;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 
 public interface ICorrelationIdHelper
 {
