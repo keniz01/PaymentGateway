@@ -7,6 +7,8 @@ using Mapster;
 using MapsterMapper;
 using Dapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
+using Microsoft.Extensions.Logging;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
@@ -15,12 +17,17 @@ public static class PersistenceServiceExtensions
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
         DefaultTypeMap.MatchNamesWithUnderscores = true;
-        services.AddDbContext<ApplicationDbContext>(options => 
-            options
-                .EnableDetailedErrors()
-                    .EnableSensitiveDataLogging()
-                        .LogTo(message => Debug.WriteLine(message))
-                            .UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext")));
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        {
+            options.EnableDetailedErrors();
+            options.EnableSensitiveDataLogging();
+            options.LogTo(message => Debug.WriteLine(message));
+            options.UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext"));
+
+            var logger = sp.GetRequiredService<ILogger<DatabaseContextLogInterceptor>>();
+            var correlationIdHelper = sp.GetRequiredService<ICorrelationIdHelper>();
+            options.AddInterceptors(new DatabaseContextLogInterceptor(logger, correlationIdHelper));
+        });
 
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();
         services.AddScoped<IVendorAccountQueryRepository, VendorAccountQueryRepository>();
@@ -29,6 +36,3 @@ public static class PersistenceServiceExtensions
         return services;
     }
 }
-
-
-
