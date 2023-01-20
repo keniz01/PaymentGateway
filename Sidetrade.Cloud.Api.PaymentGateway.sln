@@ -1,15 +1,14 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1704.2
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Domain", "src\core\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj", "{6C09DB5F-E46B-40A9-B1FD-B42BDF762C62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Domain", "src\core\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj", "{6C09DB5F-E46B-40A9-B1FD-B42BDF762C62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Application", "src\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj", "{22CF1604-7591-47D9-8AD0-957E536CA0D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Application", "src\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj", "{22CF1604-7591-47D9-8AD0-957E536CA0D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Persistence", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj", "{4267F07A-1D34-456C-9E1C-F2C7CECF3965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Persistence", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj", "{4267F07A-1D34-456C-9E1C-F2C7CECF3965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Api", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj", "{E044063A-5F9E-47E4-8762-CBADA7965A48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Api", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj", "{E044063A-5F9E-47E4-8762-CBADA7965A48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{79214082-53A1-4699-9FA7-394F9A7070DA}"
 EndProject
@@ -17,9 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{1F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{58A6E8E6-B68F-44B3-AA60-80210F71EABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Tests", "src\tests\Sidetrade.Cloud.Api.PaymentGateway.Tests\Sidetrade.Cloud.Api.PaymentGateway.Tests.csproj", "{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Tests", "src\tests\Sidetrade.Cloud.Api.PaymentGateway.Tests\Sidetrade.Cloud.Api.PaymentGateway.Tests.csproj", "{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Presentation", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Presentation\Sidetrade.Cloud.Api.PaymentGateway.Presentation.csproj", "{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Presentation", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Presentation\Sidetrade.Cloud.Api.PaymentGateway.Presentation.csproj", "{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.EventConsumer", "src\external\Sidetrade.Cloud.Api.PaymentGateway.EventConsumer\Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.csproj", "{7F8205F1-938D-4217-84F0-68A85B1DB0ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,19 +52,24 @@ Global
 		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8205F1-938D-4217-84F0-68A85B1DB0ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8205F1-938D-4217-84F0-68A85B1DB0ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8205F1-938D-4217-84F0-68A85B1DB0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8205F1-938D-4217-84F0-68A85B1DB0ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E3EEB1DE-CD14-4EAF-BB15-7B83592EB07B}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{22CF1604-7591-47D9-8AD0-957E536CA0D9} = {79214082-53A1-4699-9FA7-394F9A7070DA}
 		{6C09DB5F-E46B-40A9-B1FD-B42BDF762C62} = {79214082-53A1-4699-9FA7-394F9A7070DA}
+		{22CF1604-7591-47D9-8AD0-957E536CA0D9} = {79214082-53A1-4699-9FA7-394F9A7070DA}
 		{4267F07A-1D34-456C-9E1C-F2C7CECF3965} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 		{E044063A-5F9E-47E4-8762-CBADA7965A48} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6} = {58A6E8E6-B68F-44B3-AA60-80210F71EABD}
 		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
+		{7F8205F1-938D-4217-84F0-68A85B1DB0ED} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3EEB1DE-CD14-4EAF-BB15-7B83592EB07B}
 	EndGlobalSection
 EndGlobal

@@ -7,10 +7,7 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.
     {
         private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;
 
-        public CreateVendorAccountCommandHandler(
-            IVendorAccountCommandRepository vendorAccountWriteRepository,
-            ILogger<CreateVendorAccountCommandHandler> logger
-         )
+        public CreateVendorAccountCommandHandler(IVendorAccountCommandRepository vendorAccountWriteRepository)
         {
             _vendorAccountCommandRepository = vendorAccountWriteRepository;
         }
