@@ -10,10 +10,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddApiMappings(this IServiceCollection services)
     {
-        var config = new TypeAdapterConfig();
-        // Or
-        // var config = TypeAdapterConfig.GlobalSettings;
-        services.AddSingleton(config);
+        services.AddSingleton(new TypeAdapterConfig());
         services.AddScoped<IMapper, ServiceMapper>();
         services.AddValidatorsFromAssemblyContaining(typeof(VendorIdValidator));
         return services;

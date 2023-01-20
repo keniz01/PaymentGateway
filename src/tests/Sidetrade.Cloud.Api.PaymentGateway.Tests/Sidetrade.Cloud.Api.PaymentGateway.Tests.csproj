@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Sidetrade.Cloud.Api.PaymentGateway.Api.Tests\**" />
+    <Compile Remove="Sidetrade.Cloud.Api.PaymentGateway.Domain.Tests\**" />
+    <EmbeddedResource Remove="Sidetrade.Cloud.Api.PaymentGateway.Api.Tests\**" />
+    <EmbeddedResource Remove="Sidetrade.Cloud.Api.PaymentGateway.Domain.Tests\**" />
+    <None Remove="Sidetrade.Cloud.Api.PaymentGateway.Api.Tests\**" />
+    <None Remove="Sidetrade.Cloud.Api.PaymentGateway.Domain.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
@@ -39,10 +48,6 @@
     <None Remove="Microsoft.Extensions.DependencyInjection" />
     <None Remove="Bogus" />
     <None Remove="AutoBogus" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sidetrade.Cloud.Api.PaymentGateway.Api.Tests\" />
-    <Folder Include="Sidetrade.Cloud.Api.PaymentGateway.Domain.Tests\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />

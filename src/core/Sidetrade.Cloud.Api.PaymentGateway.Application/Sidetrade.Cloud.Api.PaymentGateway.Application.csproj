@@ -7,15 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GetVendorAccount\**" />
+    <Compile Remove="Shared\**" />
+    <EmbeddedResource Remove="GetVendorAccount\**" />
+    <EmbeddedResource Remove="Shared\**" />
+    <None Remove="GetVendorAccount\**" />
+    <None Remove="Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="MediatR" />
     <None Remove="Microsoft.Extensions.Logging" />
     <None Remove="GetActiveVendorAccount\" />
-    <None Remove="GetActiveVendorAccount\Queries\" />
     <None Remove="Shared\" />
     <None Remove="Abstractions\" />
-    <None Remove="GetActiveVendorAccount\Commands\" />
-    <None Remove="GetActiveVendorAccount\Commands\Create\" />
-    <None Remove="GetActiveVendorAccount\Commands\Update\" />
     <None Remove="Dapper" />
     <None Remove="Microsoft.Extensions.Configuration" />
     <None Remove="Npgsql.ConfigureConnection" />
@@ -24,6 +29,7 @@
     <None Remove="Scrutor" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.10" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
@@ -37,12 +43,6 @@
     <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GetActiveVendorAccount\" />
-    <Folder Include="GetActiveVendorAccount\Queries\" />
-    <Folder Include="Shared\" />
     <Folder Include="Abstractions\" />
-    <Folder Include="GetActiveVendorAccount\Commands\" />
-    <Folder Include="GetActiveVendorAccount\Commands\Create\" />
-    <Folder Include="GetActiveVendorAccount\Commands\Update\" />
   </ItemGroup>
 </Project>
