@@ -2,6 +2,7 @@
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(cfg =>
@@ -12,11 +13,19 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddMassTransit(x =>
         {
-            x.AddConsumer<SubmitOrderConsumer>(typeof(SubmitOrderConsumerDefinition));
+            x.AddConsumer<CreateVendorAcccountEventConsumer>(typeof(CreateVendorAcccountEventConsumer));
 
             x.SetKebabCaseEndpointNameFormatter();
 
-            x.UsingRabbitMq((context, cfg) => cfg.ConfigureEndpoints(context));
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.ConfigureEndpoints(context);
+                cfg.Host("localhost", "/", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+            });
         });
     })
     .Build();
