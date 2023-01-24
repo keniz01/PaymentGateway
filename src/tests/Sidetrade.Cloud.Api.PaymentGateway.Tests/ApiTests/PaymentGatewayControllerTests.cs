@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Net.Mime;
 using Bogus;
 using System.Net;
-using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Features.VendorAccountFeature;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Tests.ApiTests;
 
 [TestFixture]
 public class PaymentGatewayControllerTests
@@ -26,7 +26,7 @@ public class PaymentGatewayControllerTests
     [Test(Description = "CreateVendorAccountAsync - Creates a new vendor account.")]
     [Category("PaymentGatewayController")]
     public async Task PaymentGatewayController_CreateVendorAccountAsync_Should_create_new_vendor_account()
-    {        
+    {
         var response = await CreateVendorAccountAsync();
         response.IsSuccessStatusCode.Should().BeTrue();
     }
@@ -34,7 +34,7 @@ public class PaymentGatewayControllerTests
     [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
     public async Task GetVendorAccountAsync_should_return_true_status_success_code()
-    {        
+    {
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
         responseMessage.EnsureSuccessStatusCode();
@@ -44,11 +44,11 @@ public class PaymentGatewayControllerTests
     [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
     public async Task GetVendorAccountAsync_should_return_valid_public_key()
-    {        
+    {
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
         responseMessage.EnsureSuccessStatusCode();
-        
+
         var jsonContent = await responseMessage.Content.ReadAsStringAsync();
         var vendorAccount = JsonSerializer.Deserialize<GetVendorAccountResponse>(jsonContent,
         new JsonSerializerOptions
@@ -75,7 +75,7 @@ public class PaymentGatewayControllerTests
     private async Task<HttpResponseMessage> CreateVendorAccountAsync()
     {
         var faker = new Faker();
-        var payLoad = new 
+        var payLoad = new
         {
             PublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}",
             SecretKey = $"sk_test_{faker.Random.AlphaNumeric(25)}",
@@ -83,7 +83,7 @@ public class PaymentGatewayControllerTests
         };
         var json = JsonSerializer.Serialize<dynamic>(payLoad);
         var content = new StringContent(json, Encoding.Default, MediaTypeNames.Application.Json);
-        
+
         var response = await _client.PostAsync(
             PaymentGatewayControllerApiEndpointConstants.CREATE_VENDOR_ACCOUNT,
             content,

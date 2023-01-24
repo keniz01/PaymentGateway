@@ -16,9 +16,6 @@
     <None Remove="MassTransit.Extensions.DependencyInjection" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PaymentAccounts\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -35,5 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.EventMessages\Sidetrade.Cloud.Api.PaymentGateway.EventMessages.csproj" />
   </ItemGroup>
 </Project>

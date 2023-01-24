@@ -1,16 +1,15 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Mapster;
 using MapsterMapper;
 using Dapper;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
 
 public static class PersistenceServiceExtensions
 {

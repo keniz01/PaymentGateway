@@ -1,6 +1,6 @@
 ﻿using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 
 public interface IVendorAccountCommandRepository
 {

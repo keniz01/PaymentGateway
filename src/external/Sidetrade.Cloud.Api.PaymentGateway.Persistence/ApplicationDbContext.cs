@@ -11,7 +11,7 @@ public class ApplicationDbContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<VendorAccount>(options => 
+        modelBuilder.Entity<VendorAccountDataModel>(options => 
         {
             options.ToTable("vendor_account").HasKey(prop => prop.MemberId);
             options.Property(prop => prop.MemberId).HasColumnName("member_id").ValueGeneratedNever().IsRequired();
@@ -24,5 +24,5 @@ public class ApplicationDbContext: DbContext
         });
     }
 
-    public DbSet<VendorAccount> VendorAccounts => Set<VendorAccount>();
+    public DbSet<VendorAccountDataModel> VendorAccounts => Set<VendorAccountDataModel>();
 }

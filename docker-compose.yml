@@ -2,9 +2,14 @@ version: '3.8'
 services:
   rabbitmq:
     image: masstransit/rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest    
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - 'rabbitmq_data:/var/lib/rabbitmq/data'
   postgres-db:
     image: postgres:latest
     restart: always
@@ -32,5 +37,6 @@ services:
       - postgres-db
 volumes:
   postgres-db:
-    driver: local      
+    driver: local    
+  rabbitmq_data:
 

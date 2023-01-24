@@ -1,4 +1,4 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.Features.VendorAccountFeature;
 
 public abstract class HttpRequestHeaderNameConstants
 {

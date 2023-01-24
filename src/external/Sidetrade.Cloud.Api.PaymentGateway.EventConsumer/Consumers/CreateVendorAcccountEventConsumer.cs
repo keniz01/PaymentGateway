@@ -1,34 +1,42 @@
 ﻿using MapsterMapper;
 using MassTransit;
+using MediatR;
 using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.DomainEvents;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
+using Sidetrade.Cloud.Api.PaymentGateway.EventMessages;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers
 {
-    public class CreateVendorAcccountEventConsumer : IConsumer<VendorAccountEntity>
+    public class CreateVendorAcccountEventConsumer : IConsumer<CreateVendorAccountMessage>
     {
-        private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;
+        private readonly IMediator _mediator;
         private readonly ILogger<CreateVendorAcccountEventConsumer> _logger;
+        private readonly IMapper _mapper;
 
         public CreateVendorAcccountEventConsumer(
-            IVendorAccountCommandRepository vendorAccountWriteRepository,
-            ILogger<CreateVendorAcccountEventConsumer> logger
+            ILogger<CreateVendorAcccountEventConsumer> logger,
+            IMapper mapper,
+            IMediator mediator
         )
         {
-            _vendorAccountCommandRepository = vendorAccountWriteRepository;
             _logger = logger;
+            _mapper = mapper;
+            _mediator = mediator;
         }
 
-        public async Task Consume(ConsumeContext<VendorAccountEntity> context)
+        public async Task Consume(ConsumeContext<CreateVendorAccountMessage> context)
         {
-            var isAccountCreated = await _vendorAccountCommandRepository.CreateVendorAccountAsync(context.Message, context.CancellationToken);
+            var command = _mapper.Map<CreateVendorAccountCommand>(context.Message);
+            var isAccountCreated = await _mediator.Send(command, context.CancellationToken);
 
             await context.Publish<AccountCreatedEvent>(new
             {
                 IsAccountCreated = isAccountCreated
             });
+            _logger.LogInformation("********* Request Id: {CorrelationId} completed. *********", context.CorrelationId);
         }
     }
 }

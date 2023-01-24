@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 

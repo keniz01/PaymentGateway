@@ -2,11 +2,12 @@
 using MapsterMapper;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
 using Microsoft.Extensions.DependencyInjection;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using Microsoft.Extensions.Hosting;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer;
+using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(builder =>
@@ -14,10 +15,12 @@ var host = Host.CreateDefaultBuilder(args)
         builder.AddJsonFile("appsettings.json");
         builder.AddEnvironmentVariables();
     })
-    .ConfigureServices((_, services) =>
+    .ConfigureServices((context, services) =>
     {
+        services.AddPersistenceServices(context.Configuration);
+        services.AddApplicationServices(context.Configuration);
         services.AddSingleton(new TypeAdapterConfig());
-        services.AddScoped<IMapper, ServiceMapper>();        
+        services.AddScoped<IMapper, ServiceMapper>();
 
         services.AddMassTransit(options =>
         {
@@ -37,4 +40,4 @@ var host = Host.CreateDefaultBuilder(args)
 
 await host.RunAsync();
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Consumers listening now ....");

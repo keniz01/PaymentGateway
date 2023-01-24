@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Reflection;
 using MediatR;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 
@@ -23,3 +23,4 @@ public static class ApplicationServiceExtensions
         return services;
     } 
 }
+

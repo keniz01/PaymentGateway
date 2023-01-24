@@ -3,18 +3,18 @@ using Bogus;
 using Microsoft.AspNetCore.DataProtection;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Tests.ApiTests;
 
-public class BogusDataGenerator
+public static class BogusDataGenerator
 {
-    public static IList<VendorAccount> Generate()
+    public static IList<VendorAccountDataModel> Generate()
     {
         var provider = DataProtectionProvider
             .Create(typeof(PaymentGatewayControllerTests).Assembly.GetName().FullName)
             .CreateProtector("PAYMENT_GATEWAY_SECRET_KEY");
 
         Randomizer.Seed = new Random(1);
-        var faker = new Faker<VendorAccount>()
+        var faker = new Faker<VendorAccountDataModel>()
             .Rules((faker, account) =>
             {
                 account.MemberId = faker.Random.Number(300000, 699999);

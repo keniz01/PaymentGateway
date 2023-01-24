@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 [Table("vendor_account")]
-public sealed class VendorAccount
+public sealed class VendorAccountDataModel
 {
     [Key]
     [Column("member_id")]

@@ -1,4 +1,4 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 
 public interface IVendorAccountQueryRepository
 {

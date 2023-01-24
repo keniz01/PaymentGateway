@@ -39,9 +39,9 @@
     <None Remove="Dapper" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.EventMessages\Sidetrade.Cloud.Api.PaymentGateway.EventMessages.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />
     <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Presentation\Sidetrade.Cloud.Api.PaymentGateway.Presentation.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

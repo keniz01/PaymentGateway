@@ -40,8 +40,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.EventMessages\Sidetrade.Cloud.Api.PaymentGateway.EventMessages.csproj" />
     <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />
-    <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj" />
   </ItemGroup>
 
 </Project>

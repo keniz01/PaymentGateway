@@ -1,5 +1,3 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
-
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,11 +5,14 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
+
 public class RequestLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
     where TRequest : IRequest<TResponse>
 {
     private readonly ILogger<RequestLoggingBehavior<TRequest, TResponse>> _logger;
     private readonly ICorrelationIdHelper _correlationIdHelper;
+
     public RequestLoggingBehavior(
         ILogger<RequestLoggingBehavior<TRequest, TResponse>> logger,
         ICorrelationIdHelper correlationIdHelper)

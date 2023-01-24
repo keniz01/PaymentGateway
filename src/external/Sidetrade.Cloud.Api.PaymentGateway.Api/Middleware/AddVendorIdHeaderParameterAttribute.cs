@@ -1,6 +1,6 @@
-﻿namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
+﻿namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class AddVendorIdHeaderParameterAttribute: Attribute
+public class AddVendorIdHeaderParameterAttribute : Attribute
 {
 }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
 using MapsterMapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
@@ -23,7 +22,7 @@ public class VendorAccountCommandRepository : IVendorAccountCommandRepository
 
     public async Task<bool> CreateVendorAccountAsync(VendorAccountEntity entity, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<VendorAccount>(entity);
+        var model = _mapper.Map<VendorAccountDataModel>(entity);
 
         _context.VendorAccounts.Add(model);
         var affectedRows = await _context.SaveChangesAsync(cancellationToken);
