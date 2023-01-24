@@ -15,17 +15,17 @@ public static class PersistenceServiceExtensions
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        var connectionString = configuration.GetConnectionString("PaymentGatewayContext");
         DefaultTypeMap.MatchNamesWithUnderscores = true;
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.EnableDetailedErrors();
             options.EnableSensitiveDataLogging();
             options.LogTo(message => Debug.WriteLine(message));
-            options.UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext"));
+            options.UseNpgsql(connectionString);
 
-            var logger = sp.GetRequiredService<ILogger<DatabaseContextLogInterceptor>>();
-            var correlationIdHelper = sp.GetRequiredService<ICorrelationIdHelper>();
-            options.AddInterceptors(new DatabaseContextLogInterceptor(logger, correlationIdHelper));
+            var context = sp.GetRequiredService<ApplicationDbContext>();
+            context.Database.EnsureCreated();
         });
 
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();

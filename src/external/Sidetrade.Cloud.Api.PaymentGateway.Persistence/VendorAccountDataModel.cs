@@ -23,8 +23,8 @@ public sealed class VendorAccountDataModel
     public bool IsActivated { get; set; }
 
     [Column("date_created")]
-    public bool DateCreated { get; set; }    
+    public DateTimeOffset DateCreated { get; set; }    
 
     [Column("date_updated")]
-    public bool DateUpdated { get; set; }
+    public DateTimeOffset DateUpdated { get; set; }
 } 

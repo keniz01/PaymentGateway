@@ -10,6 +10,7 @@ public class VendorAccountCommandRepository : IVendorAccountCommandRepository
     private readonly ILogger<VendorAccountCommandRepository> _logger;
     private readonly IMapper _mapper;
     private readonly ApplicationDbContext _context;
+
     public VendorAccountCommandRepository(
         ApplicationDbContext context, 
         ILogger<VendorAccountCommandRepository> logger,
@@ -23,6 +24,7 @@ public class VendorAccountCommandRepository : IVendorAccountCommandRepository
     public async Task<bool> CreateVendorAccountAsync(VendorAccountEntity entity, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<VendorAccountDataModel>(entity);
+        model.DateCreated = model.DateUpdated = DateTimeOffset.UtcNow;
 
         _context.VendorAccounts.Add(model);
         var affectedRows = await _context.SaveChangesAsync(cancellationToken);

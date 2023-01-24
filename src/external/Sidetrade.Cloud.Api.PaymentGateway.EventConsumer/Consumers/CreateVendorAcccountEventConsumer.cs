@@ -2,10 +2,8 @@
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.DomainEvents;
-using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 using Sidetrade.Cloud.Api.PaymentGateway.EventMessages;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers

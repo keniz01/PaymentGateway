@@ -33,7 +33,7 @@ public class PaymentGatewayControllerTests
 
     [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
-    public async Task GetVendorAccountAsync_should_return_true_status_success_code()
+    public async Task PaymentGatewayController_GetVendorAccountAsync_should_return_true_status_success_code()
     {
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
@@ -43,7 +43,7 @@ public class PaymentGatewayControllerTests
 
     [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
     [Category("PaymentGatewayController")]
-    public async Task GetVendorAccountAsync_should_return_valid_public_key()
+    public async Task PaymentGatewayController_GetVendorAccountAsync_should_return_valid_public_key()
     {
         await CreateVendorAccountAsync();
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
@@ -77,8 +77,8 @@ public class PaymentGatewayControllerTests
         var faker = new Faker();
         var payLoad = new
         {
-            PublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}",
-            SecretKey = $"sk_test_{faker.Random.AlphaNumeric(25)}",
+            ApiPublicKey = $"pk_test_{faker.Random.AlphaNumeric(25)}",
+            ApiSecretKey = $"sk_test_{faker.Random.AlphaNumeric(25)}",
             IsActivated = true
         };
         var json = JsonSerializer.Serialize<dynamic>(payLoad);
@@ -88,6 +88,7 @@ public class PaymentGatewayControllerTests
             PaymentGatewayControllerApiEndpointConstants.CREATE_VENDOR_ACCOUNT,
             content,
             CancellationToken.None);
+
         return response;
     }
 }
