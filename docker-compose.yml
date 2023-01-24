@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: masstransit/rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  postgres-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - postgres-db:/var/lib/postgresql/data
+  paymentgateway-api:
+    image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
+    build:
+      context: .
+      dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Api/Dockerfile
+    depends_on:
+      - rabbitmq
+  consumer-events:
+    image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
+    build:
+      context: .
+      dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.EventConsumer/Dockerfile
+    depends_on:
+      - rabbitmq
+      - postgres-db
+volumes:
+  postgres-db:
+    driver: local      
+

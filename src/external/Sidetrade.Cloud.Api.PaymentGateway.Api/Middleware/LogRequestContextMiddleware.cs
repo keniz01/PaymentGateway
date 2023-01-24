@@ -24,7 +24,7 @@ public class LogRequestContextMiddleware
 
         var timer = new Stopwatch();
         timer.Start();
-        _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTime.UtcNow);
+        _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTimeOffset.UtcNow);
         
         var response = _next(context);
         

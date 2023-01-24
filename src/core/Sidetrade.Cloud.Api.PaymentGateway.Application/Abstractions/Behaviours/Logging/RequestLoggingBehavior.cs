@@ -25,7 +25,7 @@ public class RequestLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         var correlationId = _correlationIdHelper.Get();
         var timer = new Stopwatch();
         timer.Start();
-        _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTime.UtcNow);
+        _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTimeOffset.UtcNow);
         
         var response = await next();
         

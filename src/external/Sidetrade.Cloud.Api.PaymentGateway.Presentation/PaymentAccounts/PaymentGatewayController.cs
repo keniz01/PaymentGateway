@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 using MapsterMapper;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
+using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
@@ -19,13 +21,18 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 public class PaymentGatewayController: ControllerBase
 {
     private readonly ILogger<PaymentGatewayController> _logger;
-    private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IMediator _mediator;
 
-    public PaymentGatewayController(ILogger<PaymentGatewayController> logger, IMapper mapper, IMediator mediator)
+    public PaymentGatewayController(
+        IMediator mediator,
+        ILogger<PaymentGatewayController> logger,
+        IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _logger = logger;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
         _mediator = mediator;
     }
 
@@ -54,16 +61,8 @@ public class PaymentGatewayController: ControllerBase
             return Results.BadRequest("Required headers missing.");
         }
 
-        var command = new CreateVendorAccountCommand
-        (
-            memberId,
-            metaMemberId,
-            request.PublicKey,
-            request.SecretKey,
-            request.IsActivated
-        );
-
-        await _mediator.Send(command, cancellationToken);
+        var entity = _mapper.Map<VendorAccountEntity>(request);
+        await _publishEndpoint.Publish<VendorAccountEntity>(entity, cancellationToken);
 
         return Results.Ok(new { IsVendorAcountCreated = true });
     }    
@@ -80,15 +79,9 @@ public class PaymentGatewayController: ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("vendor-account")]
     public async Task<IResult> GetVendorAccountAsync(
-        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)]
-        [Required]
-        int memberId,
-        [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)]
-        [Required]
-        int metaMemberId,        
-        [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)]
-        [Required]
-        Guid correlationId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)][Required]int memberId,
+        [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)][Required]int metaMemberId,        
+        [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)][Required]Guid correlationId,
         CancellationToken cancellationToken)
     {
         if(!(new VendorIdValidator().Validate(memberId).IsValid

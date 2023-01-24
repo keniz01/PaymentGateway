@@ -5,11 +5,15 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <DockerComposeProjectPath>../../../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
+    <None Remove="Mapster" />
+    <None Remove="Mapster.DependencyInjection" />
+    <None Remove="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +33,15 @@
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />
+    <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj" />
   </ItemGroup>
 
 </Project>

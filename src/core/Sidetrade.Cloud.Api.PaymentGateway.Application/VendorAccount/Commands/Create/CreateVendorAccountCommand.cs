@@ -1,4 +1,5 @@
-﻿using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Commands;
+﻿using MediatR;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Commands;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create
 {

@@ -13,6 +13,8 @@
     <EmbeddedResource Remove="Shared\**" />
     <None Remove="GetVendorAccount\**" />
     <None Remove="Shared\**" />
+    <None Remove="Mapster" />
+    <None Remove="Mapster.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +31,6 @@
     <None Remove="Scrutor" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.10" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
@@ -37,7 +38,8 @@
     <PackageReference Include="Npgsql.ConfigureConnection" Version="0.1.1" />
     <PackageReference Include="Npgsql" Version="7.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Scrutor" Version="4.2.0" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Domain\Sidetrade.Cloud.Api.PaymentGateway.Domain.csproj" />

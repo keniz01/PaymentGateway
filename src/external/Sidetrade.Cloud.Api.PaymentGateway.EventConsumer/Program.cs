@@ -1,29 +1,34 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Mapster;
+using MapsterMapper;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
+using Microsoft.Extensions.DependencyInjection;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 var host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration(cfg =>
+    .ConfigureAppConfiguration(builder =>
     {
-        cfg.AddJsonFile("appsettings.json");
+        builder.AddJsonFile("appsettings.json");
+        builder.AddEnvironmentVariables();
     })
-    .ConfigureServices(services => 
+    .ConfigureServices((_, services) =>
     {
-        services.AddMassTransit(x =>
+        services.AddSingleton(new TypeAdapterConfig());
+        services.AddScoped<IMapper, ServiceMapper>();        
+
+        services.AddMassTransit(options =>
         {
-            x.AddConsumer<CreateVendorAcccountEventConsumer>(typeof(CreateVendorAcccountEventConsumer));
-
-            x.SetKebabCaseEndpointNameFormatter();
-
-            x.UsingRabbitMq((context, cfg) =>
+            options.AddConsumer<CreateVendorAcccountEventConsumer>();
+            options.SetKebabCaseEndpointNameFormatter();
+            options.UsingRabbitMq((context, config) =>
             {
-                cfg.ConfigureEndpoints(context);
-                cfg.Host("localhost", "/", h =>
+                config.Host("amqp://guest:guest@localhost:5672");
+                config.ReceiveEndpoint("vendor-account", cfg => 
                 {
-                    h.Username("guest");
-                    h.Password("guest");
+                    cfg.ConfigureConsumer<CreateVendorAcccountEventConsumer>(context);
                 });
             });
         });

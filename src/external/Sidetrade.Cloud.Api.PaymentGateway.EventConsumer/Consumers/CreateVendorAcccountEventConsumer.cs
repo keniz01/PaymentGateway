@@ -1,17 +1,13 @@
-﻿using MassTransit;
+﻿using MapsterMapper;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Sidetrade.Cloud.Api.PaymentGateway.Domain.DomainEvents;
+using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers
 {
-    public class CreateVendorAcccountEventConsumer : IConsumer<CreateVendorAccountEvent>
+    public class CreateVendorAcccountEventConsumer : IConsumer<VendorAccountEntity>
     {
         private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;
         private readonly ILogger<CreateVendorAcccountEventConsumer> _logger;
@@ -25,14 +21,14 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers
             _logger = logger;
         }
 
-        public async Task Consume(ConsumeContext<CreateVendorAccountEvent> context)
+        public async Task Consume(ConsumeContext<VendorAccountEntity> context)
         {
-            var command = new ()
-            {
+            var isAccountCreated = await _vendorAccountCommandRepository.CreateVendorAccountAsync(context.Message, context.CancellationToken);
 
-            }
-            var isAccountCreated = await _vendorAccountCommandRepository.CreateVendorAccountAsync(command, cancellationToken);
-            return new CreateVendorAccountCommandResult(isAccountCreated);
+            await context.Publish<AccountCreatedEvent>(new
+            {
+                IsAccountCreated = isAccountCreated
+            });
         }
     }
 }
