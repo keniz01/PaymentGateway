@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
@@ -26,3 +28,20 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<VendorAccountDataModel> VendorAccounts => Set<VendorAccountDataModel>();
 }
+
+//public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+//{
+//    public ApplicationDbContext CreateDbContext(string[] args)
+//    {
+//        IConfigurationRoot configuration = new ConfigurationBuilder()
+//            .SetBasePath(Directory.GetCurrentDirectory())
+//            .AddJsonFile("appsettings.json")
+//            .Build();
+
+//        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+//            .UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext"))
+//            .Options;
+
+//        return new ApplicationDbContext(options);
+//    }
+//}

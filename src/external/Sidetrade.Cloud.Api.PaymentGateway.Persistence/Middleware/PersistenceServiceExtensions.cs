@@ -21,10 +21,6 @@ public static class PersistenceServiceExtensions
             options.EnableSensitiveDataLogging();
             options.LogTo(message => Debug.WriteLine(message));
             options.UseNpgsql(connectionString);
-
-            var context = sp.GetRequiredService<ApplicationDbContext>();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
         });
 
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();

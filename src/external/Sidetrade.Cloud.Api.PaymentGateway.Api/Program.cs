@@ -19,7 +19,6 @@ builder.Services.AddRateLimiting();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    //options.OperationFilter<AddVendorIdHeaderParameterOperationFilter>();
     options.EnableAnnotations();
     options.SwaggerDoc("v1",
         new OpenApiInfo
@@ -37,7 +36,7 @@ builder.Services.AddSwaggerGen(options =>
               {"x-logo",
                 new OpenApiObject
                 {
-                   {"url", new OpenApiString("https://t3.ftcdn.net/jpg/05/16/28/26/240_F_516282605_eYsy2LkyY3xfHyZVJhlVUN0ClCNxV2tp.jpg")},
+                   { "url", new OpenApiString("https://t3.ftcdn.net/jpg/05/16/28/26/240_F_516282605_eYsy2LkyY3xfHyZVJhlVUN0ClCNxV2tp.jpg")},
                    { "altText", new OpenApiString("Your logo alt text here")}
                 }
               }
