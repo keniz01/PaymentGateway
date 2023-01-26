@@ -2,7 +2,7 @@
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-public class ApplicationDbContext: DbContext
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -11,7 +11,7 @@ public class ApplicationDbContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<VendorAccountDataModel>(options => 
+        modelBuilder.Entity<VendorAccountDataModel>(options =>
         {
             options.ToTable("vendor_account").HasKey(prop => prop.MemberId);
             options.Property(prop => prop.MemberId).HasColumnName("member_id").ValueGeneratedNever().IsRequired();

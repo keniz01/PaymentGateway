@@ -1,13 +1,11 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Dapper;
 using Mapster;
 using MapsterMapper;
-using Dapper;
-using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
+using System.Diagnostics;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
 
@@ -25,6 +23,7 @@ public static class PersistenceServiceExtensions
             options.UseNpgsql(connectionString);
 
             var context = sp.GetRequiredService<ApplicationDbContext>();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         });
 

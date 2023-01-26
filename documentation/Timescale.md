@@ -18,3 +18,8 @@ Consumer
 MassTransit
 MassTransit.RabbitMQ
 https://code-maze.com/masstransit-rabbitmq-aspnetcore/
+
+DevContainers
+https://code.visualstudio.com/docs/devcontainers/create-dev-container
+
+https://www.youtube.com/watch?v=73_Voet2fnc
