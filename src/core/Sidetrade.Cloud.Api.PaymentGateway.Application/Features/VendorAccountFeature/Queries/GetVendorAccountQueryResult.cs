@@ -1,11 +1,11 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Queries;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Queries;
 
 /// <summary>
 /// Request to get a vendor payment account by vendor id.
 /// </summary>
 public class GetVendorAccountQueryResult
 {
-    public GetVendorAccountQueryResult() {}
+    public GetVendorAccountQueryResult() { }
 
     private GetVendorAccountQueryResult(int memberId,
         int? metaMemberId, string apiSecretKey, string apiPublicKey, bool isActivated)
@@ -23,25 +23,25 @@ public class GetVendorAccountQueryResult
     public string ApiPublicKey { get; protected set; } = string.Empty;
     public bool IsActivated { get; protected set; }
 
-    public static GetVendorAccountQueryResult Create(int memberId, 
+    public static GetVendorAccountQueryResult Create(int memberId,
         int metaMemberId, string apiSecretKey, string apiPublicKey, bool isActivated)
     {
-        if(memberId < 1)
+        if (memberId < 1)
         {
-            return new UnknowVendorAccount();
+            return new UnknownVendorAccount();
         }
 
         return new GetVendorAccountQueryResult(memberId, metaMemberId, apiSecretKey, apiPublicKey, isActivated);
     }
 
-    public static UnknowVendorAccount Unknown()
+    public static UnknownVendorAccount Unknown()
     {
-        return new UnknowVendorAccount();
+        return new UnknownVendorAccount();
     }
 
     public override string ToString() => $"{MemberId} | {MetaMemberId} | {ApiSecretKey} | {ApiPublicKey} | {IsActivated}";
 
-    public class UnknowVendorAccount : GetVendorAccountQueryResult
+    public class UnknownVendorAccount : GetVendorAccountQueryResult
     {
     }
 }

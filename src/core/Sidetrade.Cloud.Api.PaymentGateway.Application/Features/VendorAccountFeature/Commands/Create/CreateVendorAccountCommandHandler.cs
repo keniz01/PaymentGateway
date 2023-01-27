@@ -2,7 +2,7 @@ using MapsterMapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Commands;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create
 {
     public class CreateVendorAccountCommandHandler : ICommandHandler<CreateVendorAccountCommand, CreateVendorAccountCommandResult>
     {
@@ -20,7 +20,7 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.
             var entity = _mapper.Map<VendorAccountEntity>(command);
             var response = await _vendorAccountCommandRepository.CreateVendorAccountAsync(entity, cancellationToken);
             return new CreateVendorAccountCommandResult(response);
-;        }
+        }
     }
 }
 

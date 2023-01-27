@@ -1,5 +1,11 @@
 using FluentAssertions;
 using NetArchTest.Rules;
+using Sidetrade.Cloud.Api.PaymentGateway.Api;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Domain;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation;
+
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests.Application;
 
 [TestFixture]
@@ -16,7 +22,7 @@ public class DomainDependencyTests
                 ApplicationAssembly.GetAssemblyReference().FullName,
                 PresentationAssembly.GetAssemblyReference().FullName,
                 ApiAssembly.GetAssemblyReference().FullName,
-                InfrastrucatureAssembly.GetAssemblyReference().FullName,
+                PersistenceAssembly.GetAssemblyReference().FullName,
                 DomainAssembly.GetAssemblyReference().FullName
             )
             .GetResult();

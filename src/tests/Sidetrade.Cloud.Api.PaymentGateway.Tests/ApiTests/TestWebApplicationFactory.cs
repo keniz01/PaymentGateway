@@ -1,15 +1,19 @@
-using Microsoft.AspNetCore.Mvc.Testing;
+using MassTransit;
+using MassTransit.Testing;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
+using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
-using Microsoft.Data.Sqlite;
-using System.Data;
-using MassTransit.Testing;
-using MassTransit;
-using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
@@ -29,9 +33,12 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                     descriptor.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
                 services.Remove(contextDescriptor!);
 
-                var connectionDescriptor = services.SingleOrDefault(descriptor => 
-                    descriptor.ServiceType == typeof(DbConnection));                    
-                services.Remove(connectionDescriptor!);
+            var connectionDescriptor = services.SingleOrDefault(descriptor =>
+                descriptor.ServiceType == typeof(DbConnection));
+            services.Remove(connectionDescriptor!);
+            services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
+            services.AddMediatR(ApplicationAssembly.GetAssemblyReference());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
 
                 // https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/in-memory-databases
                 // https://learn.microsoft.com/en-us/ef/core/testing/choosing-a-testing-strategy

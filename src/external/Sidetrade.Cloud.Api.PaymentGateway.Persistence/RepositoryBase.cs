@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-public abstract class RepositoryBase<T> where T : class 
+public abstract partial class RepositoryBase<T> where T : class 
 {
     private readonly ApplicationDbContext _context;
     

@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net.Mime;
-using MapsterMapper;
+﻿using MapsterMapper;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Queries;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Queries;
 using Sidetrade.Cloud.Api.PaymentGateway.Contracts;
 using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 

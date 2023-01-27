@@ -2,12 +2,12 @@
 using MapsterMapper;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
+using Microsoft.Extensions.Hosting;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(builder =>

@@ -1,5 +1,8 @@
 using FluentAssertions;
 using NetArchTest.Rules;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Domain;
+
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests.Application;
 
 [TestFixture]
