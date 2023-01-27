@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
-using System;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 

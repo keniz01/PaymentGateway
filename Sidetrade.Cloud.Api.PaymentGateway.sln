@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.Payment
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.EventMessages", "src\external\Sidetrade.Cloud.Api.PaymentGateway.EventMessages\Sidetrade.Cloud.Api.PaymentGateway.EventMessages.csproj", "{55B61F49-CB86-4A8A-8B5E-CB545B0153E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.EventMessages", "src\external\Sidetrade.Cloud.Api.PaymentGateway.EventMessages\Sidetrade.Cloud.Api.PaymentGateway.EventMessages.csproj", "{55B61F49-CB86-4A8A-8B5E-CB545B0153E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

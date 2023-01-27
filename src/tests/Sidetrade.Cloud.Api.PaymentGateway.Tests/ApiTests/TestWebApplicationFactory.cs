@@ -1,13 +1,20 @@
-using Microsoft.AspNetCore.Mvc.Testing;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
-using Microsoft.Data.Sqlite;
-using System.Data;
-using Sidetrade.Cloud.Api.PaymentGateway.Api;
+using System.Reflection;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests.ApiTests;
 
@@ -30,6 +37,9 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             var connectionDescriptor = services.SingleOrDefault(descriptor =>
                 descriptor.ServiceType == typeof(DbConnection));
             services.Remove(connectionDescriptor!);
+            services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
+            services.AddMediatR(ApplicationAssembly.GetAssemblyReference());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
 
             // https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/in-memory-databases
             // https://learn.microsoft.com/en-us/ef/core/testing/choosing-a-testing-strategy
@@ -45,9 +55,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             var provider = services.BuildServiceProvider();
             using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
             using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-
+            context.Database.Migrate();
             var fakeData = BogusDataGenerator.Generate();
 
             foreach (var command in fakeData)

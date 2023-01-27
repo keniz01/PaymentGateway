@@ -28,20 +28,20 @@ public class GetVendorAccountQueryResult
     {
         if (memberId < 1)
         {
-            return new UnknowVendorAccount();
+            return new UnknownVendorAccount();
         }
 
         return new GetVendorAccountQueryResult(memberId, metaMemberId, apiSecretKey, apiPublicKey, isActivated);
     }
 
-    public static UnknowVendorAccount Unknown()
+    public static UnknownVendorAccount Unknown()
     {
-        return new UnknowVendorAccount();
+        return new UnknownVendorAccount();
     }
 
     public override string ToString() => $"{MemberId} | {MetaMemberId} | {ApiSecretKey} | {ApiPublicKey} | {IsActivated}";
 
-    public class UnknowVendorAccount : GetVendorAccountQueryResult
+    public class UnknownVendorAccount : GetVendorAccountQueryResult
     {
     }
 }

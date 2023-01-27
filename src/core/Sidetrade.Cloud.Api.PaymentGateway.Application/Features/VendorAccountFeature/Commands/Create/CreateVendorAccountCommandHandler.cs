@@ -21,7 +21,6 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountF
 
             var response = await _vendorAccountCommandRepository.CreateVendorAccountAsync(entity, cancellationToken);
             return new CreateVendorAccountCommandResult(response);
-            ;
         }
     }
 }
