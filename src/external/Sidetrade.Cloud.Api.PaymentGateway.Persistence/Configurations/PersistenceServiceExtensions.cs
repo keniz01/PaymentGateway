@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Repositories;
 using System.Diagnostics;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence.Configurations;
 
 public static class PersistenceServiceExtensions
 {

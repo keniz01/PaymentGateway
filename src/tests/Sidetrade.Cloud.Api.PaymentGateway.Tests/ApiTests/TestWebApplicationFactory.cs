@@ -9,7 +9,7 @@ using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Configurations;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 using System.Data;
 using System.Data.Common;

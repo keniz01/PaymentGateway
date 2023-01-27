@@ -1,8 +1,7 @@
-﻿using System.Reflection.Metadata;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Configurations;
 
 public class AddVendorIdHeaderParameterOperationFilter : IOperationFilter
 {

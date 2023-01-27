@@ -2,9 +2,9 @@
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
-using Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Api.Configurations;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Configurations;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence.Configurations;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Features.VendorAccountFeature;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Configurations;
 
 public class LogRequestContextMiddleware
 {

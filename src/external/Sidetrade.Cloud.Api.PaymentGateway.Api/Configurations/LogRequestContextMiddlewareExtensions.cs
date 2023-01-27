@@ -1,4 +1,4 @@
-namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Configurations;
 
 public static class LogRequestContextMiddlewareExtensions
 {

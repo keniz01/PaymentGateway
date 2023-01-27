@@ -1,8 +1,8 @@
 ﻿using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
 using Microsoft.Extensions.Hosting;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence.Configurations;
 using MassTransit;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 using Mapster;
 using MapsterMapper;

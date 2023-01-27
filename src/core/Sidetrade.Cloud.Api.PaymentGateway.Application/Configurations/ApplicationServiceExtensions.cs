@@ -8,7 +8,7 @@ using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Commands.Create;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.Configurations;
 
 public static class ApplicationServiceExtensions
 {
