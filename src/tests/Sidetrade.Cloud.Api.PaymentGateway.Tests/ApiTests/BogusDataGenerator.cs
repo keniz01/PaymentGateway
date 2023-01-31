@@ -7,14 +7,14 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
 public class BogusDataGenerator
 {
-    public static IList<VendorAccount> Generate()
+    public static IList<DbVendorAccount> Generate()
     {
         var provider = DataProtectionProvider
             .Create(typeof(PaymentGatewayControllerTests).Assembly.GetName().FullName)
             .CreateProtector("PAYMENT_GATEWAY_SECRET_KEY");
 
         Randomizer.Seed = new Random(1);
-        var faker = new Faker<VendorAccount>()
+        var faker = new Faker<DbVendorAccount>()
             .Rules((faker, account) =>
             {
                 account.MemberId = faker.Random.Number(300000, 699999);

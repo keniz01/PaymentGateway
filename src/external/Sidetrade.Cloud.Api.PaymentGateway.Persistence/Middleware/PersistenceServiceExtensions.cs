@@ -7,8 +7,6 @@ using Mapster;
 using MapsterMapper;
 using Dapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
-using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
@@ -23,10 +21,6 @@ public static class PersistenceServiceExtensions
             options.EnableSensitiveDataLogging();
             options.LogTo(message => Debug.WriteLine(message));
             options.UseNpgsql(configuration.GetConnectionString("PaymentGatewayContext"));
-
-            var logger = sp.GetRequiredService<ILogger<DatabaseContextLogInterceptor>>();
-            var correlationIdHelper = sp.GetRequiredService<ICorrelationIdHelper>();
-            options.AddInterceptors(new DatabaseContextLogInterceptor(logger, correlationIdHelper));
         });
 
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();

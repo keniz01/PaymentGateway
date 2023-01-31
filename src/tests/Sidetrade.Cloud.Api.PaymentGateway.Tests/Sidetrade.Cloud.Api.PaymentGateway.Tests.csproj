@@ -50,6 +50,7 @@
     <None Remove="AutoBogus" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Consumers\Sidetrade.Cloud.Api.PaymentGateway.Consumers.csproj" />
     <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Persistence\Sidetrade.Cloud.Api.PaymentGateway.Persistence.csproj" />
     <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Api\Sidetrade.Cloud.Api.PaymentGateway.Api.csproj" />
   </ItemGroup>

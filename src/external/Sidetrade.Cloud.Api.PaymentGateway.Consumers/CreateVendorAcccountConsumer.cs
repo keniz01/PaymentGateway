@@ -1,20 +1,19 @@
-﻿using MapsterMapper;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.DomainEvents;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers
+namespace Sidetrade.Cloud.Api.PaymentGateway.Consumers
 {
-    public class CreateVendorAcccountEventConsumer : IConsumer<VendorAccountEntity>
+    public class CreateVendorAcccountConsumer : IConsumer<VendorAccountEntity>
     {
         private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;
-        private readonly ILogger<CreateVendorAcccountEventConsumer> _logger;
+        private readonly ILogger<CreateVendorAcccountConsumer> _logger;
 
-        public CreateVendorAcccountEventConsumer(
+        public CreateVendorAcccountConsumer(
             IVendorAccountCommandRepository vendorAccountWriteRepository,
-            ILogger<CreateVendorAcccountEventConsumer> logger
+            ILogger<CreateVendorAcccountConsumer> logger
         )
         {
             _vendorAccountCommandRepository = vendorAccountWriteRepository;

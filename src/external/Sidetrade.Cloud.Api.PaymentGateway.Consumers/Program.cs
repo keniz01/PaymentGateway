@@ -3,10 +3,8 @@ using MapsterMapper;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.Consumers;
 using Microsoft.Extensions.DependencyInjection;
-using Sidetrade.Cloud.Api.PaymentGateway.Application;
-using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(builder =>
@@ -21,14 +19,14 @@ var host = Host.CreateDefaultBuilder(args)
 
         services.AddMassTransit(options =>
         {
-            options.AddConsumer<CreateVendorAcccountEventConsumer>();
+            options.AddConsumer<CreateVendorAcccountConsumer>();
             options.SetKebabCaseEndpointNameFormatter();
             options.UsingRabbitMq((context, config) =>
             {
                 config.Host("amqp://guest:guest@localhost:5672");
                 config.ReceiveEndpoint("vendor-account", cfg => 
                 {
-                    cfg.ConfigureConsumer<CreateVendorAcccountEventConsumer>(context);
+                    cfg.ConfigureConsumer<CreateVendorAcccountConsumer>(context);
                 });
             });
         });

@@ -5,12 +5,15 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      - USERNAME=guest
+      - PASSWORD=guest
   postgres-db:
     image: postgres:latest
-    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - USER_ID=postgres
+      - PASSWORD=postgres
+      - DATABASE=psotgres
     ports:
       - '5432:5432'
     volumes: 
@@ -26,7 +29,7 @@ services:
     image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
     build:
       context: .
-      dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.EventConsumer/Dockerfile
+      dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Consumers/Dockerfile
     depends_on:
       - rabbitmq
       - postgres-db

@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.EventConsumer/bin/Debug/net7.0/Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.dll",
+            "program": "${workspaceFolder}/src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Consumers/bin/Debug/net7.0/Sidetrade.Cloud.Api.PaymentGateway.Consumers.dll",
             "args": [],
-            "cwd": "${workspaceFolder}src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.EventConsumer",
+            "cwd": "${workspaceFolder}src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Consumers",
             "stopAtEntry": false,
             "console": "internalConsole"
         },

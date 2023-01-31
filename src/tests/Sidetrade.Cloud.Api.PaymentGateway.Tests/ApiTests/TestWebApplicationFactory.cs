@@ -7,7 +7,9 @@ using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
 using System.Data;
-using Sidetrade.Cloud.Api.PaymentGateway.Api;
+using MassTransit.Testing;
+using MassTransit;
+using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
@@ -39,10 +41,17 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                             .EnableDetailedErrors()
                             .EnableSensitiveDataLogging()
                             .LogTo(message => Debug.WriteLine(message));
-                    });   
+                    }); 
 
+                services.AddMassTransitTestHarness(cfg =>
+                {
+                    cfg.AddConsumer<CreateVendorAcccountConsumer>();
+                });
                 services.AddTransient<IDbConnection>(options => connection);
                 var provider = services.BuildServiceProvider();
+                var harness = provider.GetRequiredService<ITestHarness>();
+                
+                harness.Start().RunSynchronously();    
                 using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 context.Database.EnsureDeleted();
@@ -52,7 +61,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
 
                 foreach(var command in fakeData)
                 {
-                    context.VendorAccounts.Add(command);                    
+                    context.Entry(command).State = EntityState.Added;                    
                 }
 
                 context.SaveChanges();

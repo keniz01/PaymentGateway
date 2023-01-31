@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.Payment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidetrade.Cloud.Api.PaymentGateway.Presentation", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Presentation\Sidetrade.Cloud.Api.PaymentGateway.Presentation.csproj", "{C46E61DA-7E25-4DF6-B1B3-85A73363FD56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.EventConsumer", "src\external\Sidetrade.Cloud.Api.PaymentGateway.EventConsumer\Sidetrade.Cloud.Api.PaymentGateway.EventConsumer.csproj", "{7F8205F1-938D-4217-84F0-68A85B1DB0ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Consumers", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Consumers\Sidetrade.Cloud.Api.PaymentGateway.Consumers.csproj", "{7F8205F1-938D-4217-84F0-68A85B1DB0ED}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}"
 EndProject
