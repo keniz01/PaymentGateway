@@ -10,6 +10,6 @@ public sealed class DbVendorAccount
     public string ApiSecretKey { get; set; } = string.Empty;
     public string ApiPublicKey { get; set; } = string.Empty;
     public bool IsActivated { get; set; }
-    public bool DateCreated { get; set; }    
-    public bool DateUpdated { get; set; }
+    public DateTimeOffset DateCreated { get; set; }    
+    public DateTimeOffset DateUpdated { get; set; }
 } 

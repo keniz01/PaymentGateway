@@ -6,9 +6,8 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
-using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Commands.Create;
-using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Queries;
+using Sidetrade.Cloud.Api.PaymentGateway.Contracts;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
@@ -61,8 +60,8 @@ public class PaymentGatewayController: ControllerBase
             return Results.BadRequest("Required headers missing.");
         }
 
-        var entity = _mapper.Map<VendorAccountEntity>(request);
-        await _publishEndpoint.Publish<VendorAccountEntity>(entity, cancellationToken);
+        var entity = _mapper.Map<CreateVendorAccountMessage>(request);
+        await _publishEndpoint.Publish<CreateVendorAccountMessage>(entity, cancellationToken);
 
         return Results.Ok(new { IsVendorAcountCreated = true });
     }    

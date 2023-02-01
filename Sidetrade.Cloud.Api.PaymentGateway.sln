@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.Payment
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidetrade.Cloud.Api.PaymentGateway.Contracts", "src\external\Sidetrade.Cloud.Api.PaymentGateway.Contracts\Sidetrade.Cloud.Api.PaymentGateway.Contracts.csproj", "{92D39D54-E0E1-4656-B581-A5CB318F39D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96B2C516-9ACC-4052-A71D-2C7546E5C7CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D39D54-E0E1-4656-B581-A5CB318F39D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D39D54-E0E1-4656-B581-A5CB318F39D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D39D54-E0E1-4656-B581-A5CB318F39D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D39D54-E0E1-4656-B581-A5CB318F39D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{293216E7-20EA-4AF5-93F5-E8CD1A99AEE6} = {58A6E8E6-B68F-44B3-AA60-80210F71EABD}
 		{C46E61DA-7E25-4DF6-B1B3-85A73363FD56} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 		{7F8205F1-938D-4217-84F0-68A85B1DB0ED} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
+		{92D39D54-E0E1-4656-B581-A5CB318F39D6} = {1F7F4FAE-5B3B-4800-9655-5F7321A18894}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3EEB1DE-CD14-4EAF-BB15-7B83592EB07B}

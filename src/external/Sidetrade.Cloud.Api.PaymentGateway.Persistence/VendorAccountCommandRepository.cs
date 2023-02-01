@@ -13,6 +13,7 @@ public class VendorAccountCommandRepository : RepositoryBase<DbVendorAccount>, I
     public async Task<bool> CreateVendorAccountAsync(VendorAccountEntity entity, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<DbVendorAccount>(entity);
+        model.DateCreated = model.DateUpdated = DateTimeOffset.UtcNow;
         AddModel(model);
         return await SaveChangesAsync(cancellationToken); 
     }
@@ -20,6 +21,7 @@ public class VendorAccountCommandRepository : RepositoryBase<DbVendorAccount>, I
     public async Task<bool> UpdateVendorAccountAsync(VendorAccountEntity entity, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<DbVendorAccount>(entity);
+        model.DateUpdated = DateTimeOffset.UtcNow;
         UpdateModel(model);
         return await SaveChangesAsync(cancellationToken); 
     }

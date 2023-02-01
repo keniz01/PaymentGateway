@@ -1,7 +1,7 @@
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Queries;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Application.VendorAccount.Queries;
 
 public class GetVendorAccountQueryHandler : IQueryHandler<GetVendorAccountQuery, GetVendorAccountQueryResult>
 {    

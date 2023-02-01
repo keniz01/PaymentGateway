@@ -35,5 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
+    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Consumers\Sidetrade.Cloud.Api.PaymentGateway.Consumers.csproj" />
   </ItemGroup>
 </Project>

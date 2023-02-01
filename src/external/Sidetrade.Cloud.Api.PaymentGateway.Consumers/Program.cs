@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
+using Sidetrade.Cloud.Api.PaymentGateway.Application;
+using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration(builder =>
@@ -12,10 +15,13 @@ var host = Host.CreateDefaultBuilder(args)
         builder.AddJsonFile("appsettings.json");
         builder.AddEnvironmentVariables();
     })
-    .ConfigureServices((_, services) =>
+    .ConfigureServices((context, services) =>
     {
         services.AddSingleton(new TypeAdapterConfig());
-        services.AddScoped<IMapper, ServiceMapper>();        
+        services.AddScoped<IMapper, ServiceMapper>();
+        services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();
+        services.AddPersistenceServices(context.Configuration);
+        services.AddApplicationServices(context.Configuration);
 
         services.AddMassTransit(options =>
         {
