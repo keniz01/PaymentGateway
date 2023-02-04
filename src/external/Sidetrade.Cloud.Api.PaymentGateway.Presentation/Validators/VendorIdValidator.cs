@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.Validators;
 
 public class VendorIdValidator : AbstractValidator<int>
 {

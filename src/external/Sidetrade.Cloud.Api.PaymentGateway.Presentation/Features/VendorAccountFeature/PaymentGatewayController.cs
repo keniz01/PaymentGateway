@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Queries;
 using Sidetrade.Cloud.Api.PaymentGateway.Contracts;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Constants;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Validators;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.Features.VendorAccountFeature;
 
 [Consumes(MediaTypeNames.Application.Json)]
 [Produces(MediaTypeNames.Application.Json)]

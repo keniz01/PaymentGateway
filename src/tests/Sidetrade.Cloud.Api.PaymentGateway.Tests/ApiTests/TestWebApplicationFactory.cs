@@ -1,5 +1,4 @@
 using MassTransit;
-using MassTransit.Testing;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
-using Sidetrade.Cloud.Api.PaymentGateway.Consumers;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 using System.Data;
 using System.Data.Common;
@@ -25,7 +23,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
         connection.Open();
 
         base.ConfigureWebHost(builder);
-        builder.ConfigureServices(async services =>
+        builder.ConfigureServices(services =>
         {
             services.AddDataProtection();
 
@@ -36,6 +34,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             var connectionDescriptor = services.SingleOrDefault(descriptor =>
                     descriptor.ServiceType == typeof(DbConnection));
             services.Remove(connectionDescriptor!);
+
             services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
             services.AddMediatR(ApplicationAssembly.GetAssemblyReference());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
@@ -50,18 +49,22 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                     .LogTo(message => Debug.WriteLine(message));
             });
 
-            services.AddMassTransitTestHarness(cfg =>
-            {
-                cfg.AddConsumer<CreateVendorAcccountConsumer>();
-            });
-
+            services.AddMassTransitTestHarness();
             services.AddTransient<IDbConnection>(options => connection);
 
-            var provider = services.BuildServiceProvider();
-            var harness = provider.GetRequiredService<ITestHarness>();
+            DataSeeder.Seed(services);
+        });
 
-            await harness.Start();
-            
+        builder.UseEnvironment("Testing");
+    }
+}
+
+public static class DataSeeder
+{
+    public static void Seed(IServiceCollection services)
+    {
+            var provider = services.BuildServiceProvider();
+
             using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
             using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             
@@ -76,8 +79,5 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             }
 
             context.SaveChanges();
-        });
-
-        builder.UseEnvironment("Testing");
-    }
+    } 
 }

@@ -25,14 +25,14 @@ services:
       dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Api/Dockerfile
     depends_on:
       - rabbitmq
-  consumer-events:
-    image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
-    build:
-      context: .
-      dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Consumers/Dockerfile
-    depends_on:
-      - rabbitmq
-      - postgres-db
+  # consumer-events:
+  #   image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
+  #   build:
+  #     context: .
+  #     dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Consumers/Dockerfile
+  #   depends_on:
+  #     - rabbitmq
+  #     - postgres-db
 volumes:
   postgres-db:
     driver: local      

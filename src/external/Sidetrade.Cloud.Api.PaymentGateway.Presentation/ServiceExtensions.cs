@@ -1,9 +1,9 @@
 ﻿using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using Sidetrade.Cloud.Api.PaymentGateway.Presentation.PaymentAccounts;
 using FluentValidation;
 using MassTransit;
+using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Validators;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation;
 
