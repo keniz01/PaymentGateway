@@ -8,16 +8,17 @@ services:
     environment:
       - USERNAME=guest
       - PASSWORD=guest
-  postgres-db:
-    image: postgres:latest
-    environment:
-      - USER_ID=postgres
-      - PASSWORD=postgres
-      - DATABASE=psotgres
-    ports:
-      - '5432:5432'
-    volumes: 
-      - postgres-db:/var/lib/postgresql/data
+  # postgres-db:
+  #   image: postgres:latest
+  #   environment:
+  #     - USER_ID=postgres
+  #     - PASSWORD=postgres
+  #     - DATABASE=psotgres
+  #   ports:
+  #     - '5432:5432'
+  #   volumes: 
+  #     - postgres-db:/var/lib/postgresql/data
+  #     - postgres-logs:/var/lib/postgresql/logs
   paymentgateway-api:
     image: ${DOCKER_REGISTRY-}sidetradecloudapipaymentgateway
     build:
@@ -33,7 +34,9 @@ services:
   #   depends_on:
   #     - rabbitmq
   #     - postgres-db
-volumes:
-  postgres-db:
-    driver: local      
+# volumes:
+#   rabbitmq:
+#     driver: local 
+#   postgres-db:
+#     driver: local      
 

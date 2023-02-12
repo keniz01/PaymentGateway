@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PaymentAccounts\" />
     <None Remove="FluentValidation" />
     <None Remove="Mapster" />
     <None Remove="Mapster.DependencyInjection" />
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
     <None Remove="MassTransit.RabbitMQ" />
     <None Remove="MassTransit.Extensions.DependencyInjection" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PaymentAccounts\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.4.0" />
@@ -34,6 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\Sidetrade.Cloud.Api.PaymentGateway.Application\Sidetrade.Cloud.Api.PaymentGateway.Application.csproj" />
-    <ProjectReference Include="..\Sidetrade.Cloud.Api.PaymentGateway.Consumers\Sidetrade.Cloud.Api.PaymentGateway.Consumers.csproj" />
+    <ProjectReference Include="..\..\external\Sidetrade.Cloud.Api.PaymentGateway.Consumers\Sidetrade.Cloud.Api.PaymentGateway.Consumers.csproj" />
   </ItemGroup>
 </Project>

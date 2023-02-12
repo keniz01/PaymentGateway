@@ -63,7 +63,7 @@ public class PaymentGatewayController: ControllerBase
         }
 
         var entity = _mapper.Map<CreateVendorAccountMessage>(request);
-        await _publishEndpoint.Publish<CreateVendorAccountMessage>(entity, cancellationToken);
+        await _publishEndpoint.Publish(entity, cancellationToken);
 
         return Results.Ok(new { IsVendorAcountCreated = true });
     }    

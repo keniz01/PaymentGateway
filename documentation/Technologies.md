@@ -44,3 +44,16 @@ curl http://localhost:5123/api/v1/payment-gateway/vendor-account -H 'Content-Typ
 curl -X POST http://localhost:5123/api/v1/payment-gateway/vendor-account -H 'Content-Type: application/json' -H 'X-MEMBER-ID: 600010' -H 'X-CORRELATION-ID: ffae0601-15b1-452e-8f6b-76c33b030176' -H 'X-METAMEMBER-ID: 600010' -d '{"MemberId":600010,"MetaMemberId":600150,"ApiSecretKey":"sk_test_dvyisdgf9ebweusdf983DSFDS3udu","ApiPublicKey":"sk_test_dvyisdgf9ebweusdf983DSFDS3udu","IsActivated":true}'
 
 {"MemberId":600010,"MetaMemberId":600150,"ApiSecretKey":"sk_test_dvyisdgf9ebweusdf983DSFDS3udu","ApiPublicKey":"sk_test_dvyisdgf9ebweusdf983DSFDS3udu","IsActivated":true,"DateCreated":"2023-01-24T08:35:07.8909963+00:00","DateUpdatedted":"2023-01-24T08:35:07.9005876+00:00"}
+
+
+EFCore 7.0
+await dbContext
+    .Users
+    .Where(user => user.Name == "John")
+    .ExecuteUpdateAsync(update => update.SetProperty(user => user.Name, "Jane"));
+
+
+await dbContext
+    .Users
+    .Where(user => user.Name == "John")
+    .ExecuteDeleteAsync();
