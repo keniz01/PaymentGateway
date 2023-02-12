@@ -1,26 +1,19 @@
 using System.Data;
-using Dapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
+using Sidetrade.Cloud.Api.PaymentGateway.Application.Features.VendorAccountFeature.Queries;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-public class VendorAccountQueryRepository : IVendorAccountQueryRepository
+public class VendorAccountQueryRepository : QueryRepositoryBase, IVendorAccountQueryRepository
 {
-    private readonly IDbConnection _connection;
-
-    public VendorAccountQueryRepository(IDbConnection connection)
+    public VendorAccountQueryRepository(IDbConnection connection): base(connection)
     {
-        _connection = connection;
     }
 
-    public async Task<T> GetAsync<T>(string sql, object parameters, CancellationToken cancellationToken) where T : class
+    public async Task<GetVendorAccountQueryResult> GetVendorAccountAsync(string sql, object parameters, CancellationToken cancellationToken)
     {
-        var result = await _connection.QueryFirstOrDefaultAsync<T>
-        (
-            sql, 
-            parameters
-        );
+        var response = await GetAsync<GetVendorAccountQueryResult>(sql, parameters);
+        return response;
 
-        return result;
     }
 }

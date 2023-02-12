@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-public abstract partial class RepositoryBase<T> where T : class 
+public abstract class CommandRepositoryBase<T> where T : class 
 {
     private readonly ApplicationDbContext _context;
     
-    public RepositoryBase(ApplicationDbContext context) => _context = context;
+    protected CommandRepositoryBase(ApplicationDbContext context) => _context = context;
 
     public void AddModel(T model) => _context.Entry(model).State = EntityState.Added;
 

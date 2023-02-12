@@ -18,18 +18,20 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation.Features.VendorAccount
 [Produces(MediaTypeNames.Application.Json)]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/payment-gateway")]
-public class PaymentGatewayController: ControllerBase
+[Route("api/v{version:apiVersion}/vendor-account")]
+public class VendorAccountController: ControllerBase
 {
-    private readonly ILogger<PaymentGatewayController> _logger;
+    private readonly ILogger<VendorAccountController> _logger;
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IMediator _mediator;
 
-    public PaymentGatewayController(
+    public VendorAccountController(
         IMediator mediator,
-        ILogger<PaymentGatewayController> logger,
-        IMapper mapper, IPublishEndpoint publishEndpoint)
+        ILogger<VendorAccountController> logger,
+        IMapper mapper, 
+        IPublishEndpoint publishEndpoint
+     )
     {
         _logger = logger;
         _mapper = mapper;
@@ -42,12 +44,12 @@ public class PaymentGatewayController: ControllerBase
         Summary = "Creates a new vendor payment gateway account.",
         Description = "Creates a new vendor payment gateway account.",
         OperationId = "CreateVendorAccountAsync",
-        Tags = new[] { "Payment Gateway" }
+        Tags = new[] { "Vendor Account" }
      )]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpPost("vendor-account")]
+    [HttpPost()]
     public async Task<IResult> CreateVendorAccountAsync(
         [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)][Required] int memberId,
         [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)][Required] int metaMemberId,
@@ -63,6 +65,9 @@ public class PaymentGatewayController: ControllerBase
         }
 
         var entity = _mapper.Map<CreateVendorAccountMessage>(request);
+        entity.AddMemberId(memberId)
+            .AddMetaMemberId(metaMemberId);
+
         await _publishEndpoint.Publish(entity, cancellationToken);
 
         return Results.Ok(new { IsVendorAcountCreated = true });
@@ -70,18 +75,17 @@ public class PaymentGatewayController: ControllerBase
 
     [SwaggerOperation
     (
-        Summary = "Gets an vendor payment gateway account",
-        Description = "Gets an vendor payment gateway account",
+        Summary = "Gets an vendor payment gateway account.",
+        Description = "Gets an vendor payment gateway account.",
         OperationId = "GetVendorAccountAsync",
-        Tags = new[] { "Payment Gateway" }
+        Tags = new[] { "Vendor Account" }
      )]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("vendor-account")]
+    [HttpGet()]
     public async Task<IResult> GetVendorAccountAsync(
-        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)][Required]int memberId,
-        [FromHeader(Name = HttpRequestHeaderNameConstants.META_MEMBER_ID)][Required]int metaMemberId,        
+        [FromHeader(Name = HttpRequestHeaderNameConstants.MEMBER_ID)][Required]int memberId,       
         [FromHeader(Name = HttpRequestHeaderNameConstants.CORRELATION_ID)][Required]Guid correlationId,
         CancellationToken cancellationToken)
     {

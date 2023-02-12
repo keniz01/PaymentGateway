@@ -9,7 +9,7 @@ using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Constants;
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
 [TestFixture]
-public class PaymentGatewayControllerTests
+public class VendorAccountControllerTests
 {
     private TestWebApplicationFactory _webApplicationFactory = null!;
     private HttpClient _client = null!;
@@ -25,7 +25,7 @@ public class PaymentGatewayControllerTests
     }
 
     [Test(Description = "CreateVendorAccountAsync - Creates a new vendor account.")]
-    [Category("PaymentGatewayController")]
+    [Category("VendorAccountControllerTests")]
     public async Task PaymentGatewayController_CreateVendorAccountAsync_Should_create_new_vendor_account()
     {        
         var faker = new Faker();
@@ -39,16 +39,16 @@ public class PaymentGatewayControllerTests
         var content = new StringContent(json, Encoding.Default, MediaTypeNames.Application.Json);
         
         var response = await _client.PostAsync(
-            PaymentGatewayControllerApiEndpointConstants.CREATE_VENDOR_ACCOUNT,
+            EndpointUriConstants.CREATE_VENDOR_ACCOUNT,
             content,
             CancellationToken.None);
 
         response.IsSuccessStatusCode.Should().BeTrue();
     }
 
-    [Test(Description = "GetVendorAccountAsync - Returns a valid public key")]
-    [Category("PaymentGatewayController")]
-    public async Task GetVendorAccountAsync__Assert_that_the_call_succeeded()
+    [Test(Description = "When request for vendor account, respond with successful status code.")]
+    [Category("VendorAccountControllerTests")]
+    public async Task GetVendorAccountAsync_When_request_for_vendor_account_then_respond_with_success_status_code()
     {
         var responseMessage = await GetVendorAccountResponseMesssageAsync();
         responseMessage.EnsureSuccessStatusCode();
@@ -64,7 +64,7 @@ public class PaymentGatewayControllerTests
 
     private async Task<HttpResponseMessage> GetVendorAccountResponseMesssageAsync()
     {
-        var response = await _client.GetAsync(PaymentGatewayControllerApiEndpointConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
+        var response = await _client.GetAsync(EndpointUriConstants.GET_VENDOR_ACCOUNT, CancellationToken.None);
         return response;
     }
 }

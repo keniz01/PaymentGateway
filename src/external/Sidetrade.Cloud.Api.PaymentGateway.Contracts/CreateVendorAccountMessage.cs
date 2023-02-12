@@ -7,5 +7,17 @@ public sealed class CreateVendorAccountMessage
     public string ApiPublicKey { get; set; } = string.Empty;
     public string ApiSecretKey { get; set; } = string.Empty;
     public bool IsActivated { get; set; }
+
+    public CreateVendorAccountMessage AddMemberId(int memberId)
+    {
+       MemberId= memberId;
+        return this;
+    }
+
+    public CreateVendorAccountMessage AddMetaMemberId(int metaMemberId)
+    {
+        MetaMemberId = metaMemberId;
+        return this;
+    }
 }
 

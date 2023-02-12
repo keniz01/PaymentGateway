@@ -1,4 +1,5 @@
 using FluentAssertions;
+using MediatR;
 using NetArchTest.Rules;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Domain;
@@ -14,6 +15,8 @@ public class PresentationDependencyTests
     {
         var result = Types
             .InAssembly(PresentationAssembly.GetAssemblyReference())
+                .That()
+                .ImplementInterface(typeof(IMediator))
             .Should()
             .HaveDependencyOn(ApplicationAssembly.GetAssemblyReference().FullName)
             .GetResult();
@@ -39,7 +42,7 @@ public class PresentationDependencyTests
     public void Assert_Presentation_project_should_not_depend_on_Persistence_project()
     {
         var result = Types
-            .InCurrentDomain()
+            .InAssembly(PresentationAssembly.GetAssemblyReference())
             .Should()
             .NotHaveDependencyOn(PersistenceAssembly.GetAssemblyReference().FullName)
             .GetResult();

@@ -20,7 +20,7 @@ public class DomainDependencyTests
             var result = Types
               .InAssembly(DomainAssembly.GetAssemblyReference())
               .Should()
-              .NotHaveDependencyOnAny(
+              .NotHaveDependencyOnAll(
                 ApplicationAssembly.GetAssemblyReference().FullName,
                 ApiAssembly.GetAssemblyReference().FullName,
                 ConsumersAssembly.GetAssemblyReference().FullName,

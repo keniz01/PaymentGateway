@@ -4,7 +4,7 @@ using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
-public class VendorAccountCommandRepository : RepositoryBase<DbVendorAccount>, IVendorAccountCommandRepository
+public class VendorAccountCommandRepository : CommandRepositoryBase<DbVendorAccount>, IVendorAccountCommandRepository
 {  
     private readonly IMapper _mapper;
     public VendorAccountCommandRepository(ApplicationDbContext context,

@@ -10,7 +10,7 @@ public class BogusDataGenerator
     public static IList<DbVendorAccount> Generate()
     {
         var provider = DataProtectionProvider
-            .Create(typeof(PaymentGatewayControllerTests).Assembly.GetName().FullName)
+            .Create(typeof(VendorAccountControllerTests).Assembly.GetName().FullName)
             .CreateProtector("PAYMENT_GATEWAY_SECRET_KEY");
 
         Randomizer.Seed = new Random(1);

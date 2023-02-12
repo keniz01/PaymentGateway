@@ -18,7 +18,7 @@ public class GetVendorAccountQueryHandler : IQueryHandler<GetVendorAccountQuery,
         var sql = "SELECT * FROM vendor_account WHERE member_id = @MemberId";
         var parameters = new { request.MemberId };
 
-        var result = await _repository.GetAsync<GetVendorAccountQueryResult>(sql, parameters, cancellationToken);
+        var result = await _repository.GetVendorAccountAsync(sql, parameters, cancellationToken);
         return result ?? GetVendorAccountQueryResult.Unknown();
     }
 }
