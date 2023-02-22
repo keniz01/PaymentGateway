@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+    rabbitmq:
+        container_name: "rabbitmq"
+        image: rabbitmq:3-management
+        ports:
+            # AMQP protocol port
+            - '5672:5672'
+            # HTTP management UI
+            - '15672:15672'
+    paymentgateway-api:
+        container_name: "paymentgateway-api"
+        image: paymentgateway-api:latest
+        build:
+            dockerfile: src/external/Sidetrade.Cloud.Api.PaymentGateway.Api/Dockerfile
+        ports:
+            - '6001:80'
+        restart: always

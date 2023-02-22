@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Sidetrade.Cloud.Api.PaymentGateway.Api.Helpers;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Behaviours.Logging;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
@@ -57,27 +58,4 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
 
         builder.UseEnvironment("Testing");
     }
-}
-
-public static class DataSeeder
-{
-    public static void Seed(IServiceCollection services)
-    {
-            var provider = services.BuildServiceProvider();
-
-            using var serviceScope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-
-            var fakeData = BogusDataGenerator.Generate();
-
-            foreach (var command in fakeData)
-            {
-                context.Entry(command).State = EntityState.Added;
-            }
-
-            context.SaveChanges();
-    } 
 }

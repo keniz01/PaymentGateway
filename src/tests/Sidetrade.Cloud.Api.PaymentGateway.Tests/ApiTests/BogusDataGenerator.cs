@@ -5,7 +5,7 @@ using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Tests;
 
-public class BogusDataGenerator
+public static class BogusDataGenerator
 {
     public static IList<DbVendorAccount> Generate()
     {
@@ -24,6 +24,6 @@ public class BogusDataGenerator
                 account.IsActivated = faker.Random.Bool(1);
             });
 
-        return faker.GenerateBetween(10, 10);
+        return faker.GenerateBetween(1, 3);
     }
 }

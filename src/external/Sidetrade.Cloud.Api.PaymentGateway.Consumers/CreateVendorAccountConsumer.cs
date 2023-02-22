@@ -7,15 +7,15 @@ using Sidetrade.Cloud.Api.PaymentGateway.Domain.Entities;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Consumers
 {
-    public class CreateVendorAcccountConsumer : IConsumer<CreateVendorAccountMessage>
+    public class CreateVendorAccountConsumer : IConsumer<CreateVendorAccountMessage>
     {
         private readonly IVendorAccountCommandRepository _vendorAccountCommandRepository;
-        private readonly ILogger<CreateVendorAcccountConsumer> _logger;
+        private readonly ILogger<CreateVendorAccountConsumer> _logger;
 
 
-        public CreateVendorAcccountConsumer(
+        public CreateVendorAccountConsumer(
             IVendorAccountCommandRepository vendorAccountWriteRepository,
-            ILogger<CreateVendorAcccountConsumer> logger
+            ILogger<CreateVendorAccountConsumer> logger
         )
         {
             _vendorAccountCommandRepository = vendorAccountWriteRepository;

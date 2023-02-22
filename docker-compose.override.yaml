@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+    paymentgateway-api:
+        environment:
+            - ConnectionStrings__PaymentGatewayContext="server=localhost;port=5432;database=postgres;user id=postgres;password=Versuv10us"
+            - RabbitMqOptions__HostName=rabbitmq
+            - RabbitMqOptions__Password=guest
+            - RabbitMqOptions__Username=guest    
+            - RabbitMqOptions__Port=5672,
+            - RabbitMqOptions__VirtualHost=/
+            - RabbitMqOptions__AutomaticRecoveryEnabled=true,
+            - RabbitMqOptions__DeliveryMode=RabbitMQDeliveryMode.Durable,
+            - RabbitMqOptions__RequestedHeartbeat=30

@@ -9,7 +9,7 @@ namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddApiMappings(this IServiceCollection services)
+    public static IServiceCollection AddPresentationServices(this IServiceCollection services)
     {
         services.AddSingleton(new TypeAdapterConfig());
         services.AddScoped<IMapper, ServiceMapper>();
@@ -18,7 +18,7 @@ public static class ServiceExtensions
         {
             config.UsingRabbitMq((_, factory) =>
             {
-                factory.Host("amqp://guest:guest@localhost:5672");
+                factory.Host("amqp://guest:guest@rabbitmq:5672");
             });
         });
         return services;

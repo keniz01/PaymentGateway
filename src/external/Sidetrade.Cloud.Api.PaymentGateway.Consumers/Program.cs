@@ -25,14 +25,14 @@ var host = Host.CreateDefaultBuilder(args)
 
         services.AddMassTransit(options =>
         {
-            options.AddConsumer<CreateVendorAcccountConsumer>();
+            options.AddConsumer<CreateVendorAccountConsumer>();
             options.SetKebabCaseEndpointNameFormatter();
             options.UsingRabbitMq((context, config) =>
             {
                 config.Host("amqp://guest:guest@localhost:5672");
                 config.ReceiveEndpoint("vendor-account", cfg => 
                 {
-                    cfg.ConfigureConsumer<CreateVendorAcccountConsumer>(context);
+                    cfg.ConfigureConsumer<CreateVendorAccountConsumer>(context);
                 });
             });
         });

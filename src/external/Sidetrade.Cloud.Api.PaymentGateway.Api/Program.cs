@@ -2,19 +2,23 @@
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
+using Sidetrade.Cloud.Api.PaymentGateway.Api.Helpers;
 using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Configuration
+    .AddJsonFile($"{Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)}/appsettings.json");
 
-// Add services to the container.
-
+builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
 builder.Services.AddControllers()
     .AddApplicationPart(PresentationAssembly.GetAssemblyReference());
-builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddPresentationServices();
 builder.Services.AddRateLimiting();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -44,7 +48,6 @@ builder.Services.AddSwaggerGen(options =>
             }
         });
 });
-builder.Services.AddApiMappings();
 builder.Services.AddLogging(options =>
 {
     options.AddDebug();
@@ -77,7 +80,3 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-
-public partial class Program
-{
-}
