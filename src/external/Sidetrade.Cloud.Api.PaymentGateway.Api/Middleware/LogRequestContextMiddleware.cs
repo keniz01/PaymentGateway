@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions.Correlation;
 using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Constants;
 
-namespace Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
+namespace Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
 
 public class LogRequestContextMiddleware
 {
@@ -18,16 +18,16 @@ public class LogRequestContextMiddleware
     }
 
     public Task InvokeAsync(HttpContext context, ICorrelationIdHelper correlationIdHelper)
-    {        
+    {
         var correlationId = GetCorrelationId(context, correlationIdHelper);
         AddCorrelationIdHeaderToResponse(context, correlationId);
 
         var timer = new Stopwatch();
         timer.Start();
         _logger.LogInformation("********* Request Id: {CorrelationId} started at {LogData}. *********", correlationId.ToString(), DateTimeOffset.UtcNow);
-        
+
         var response = _next(context);
-        
+
         _logger.LogInformation("********* Request Id: {CorrelationId} completed after {TimeElapsed} ms. *********", correlationId.ToString(), timer.ElapsedMilliseconds);
         return response;
     }
@@ -40,8 +40,8 @@ public class LogRequestContextMiddleware
             .Value
             .FirstOrDefault();
 
-        if(string.IsNullOrWhiteSpace(correlationIdHeaderValue) 
-            || !Guid.TryParse(correlationIdHeaderValue, out correlationId) 
+        if (string.IsNullOrWhiteSpace(correlationIdHeaderValue)
+            || !Guid.TryParse(correlationIdHeaderValue, out correlationId)
             || correlationId == Guid.Empty)
         {
             correlationId = Guid.NewGuid();

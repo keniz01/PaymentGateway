@@ -37,7 +37,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             services.Remove(connectionDescriptor!);
 
             services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
-            services.AddMediatR(ApplicationAssembly.GetAssemblyReference());
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(ApplicationAssembly.GetAssemblyReference()));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
 
             // https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/in-memory-databases
@@ -52,7 +52,6 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddMassTransitTestHarness();
             services.AddTransient<IDbConnection>(options => connection);
-
             DataSeeder.Seed(services);
         });
 

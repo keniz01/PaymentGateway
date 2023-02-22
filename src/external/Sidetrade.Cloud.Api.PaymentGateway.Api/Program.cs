@@ -2,7 +2,9 @@
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
+using Sidetrade.Cloud.Api.PaymentGateway.Api;
 using Sidetrade.Cloud.Api.PaymentGateway.Api.Helpers;
+using Sidetrade.Cloud.Api.PaymentGateway.Api.Middleware;
 using Sidetrade.Cloud.Api.PaymentGateway.Api.PaymentAccounts;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Middleware;
 using Sidetrade.Cloud.Api.PaymentGateway.Persistence;
@@ -12,7 +14,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Configuration
-    .AddJsonFile($"{Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)}/appsettings.json");
+    .AddJsonFile($"{Path.GetDirectoryName(ApiAssembly.GetAssemblyReference().Location)}/appsettings.json");
 
 builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection(nameof(RabbitMqOptions)));
 builder.Services.AddControllers()

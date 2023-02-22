@@ -7,12 +7,12 @@ using Sidetrade.Cloud.Api.PaymentGateway.Presentation.Validators;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Presentation;
 
-public static class ServiceExtensions
+public static class PresentationServiceExtensions
 {
     public static IServiceCollection AddPresentationServices(this IServiceCollection services)
     {
         services.AddSingleton(new TypeAdapterConfig());
-        services.AddScoped<IMapper, ServiceMapper>();
+        services.AddScoped<IMapper, Mapper>();
         services.AddValidatorsFromAssemblyContaining(typeof(VendorIdValidator));
         services.AddMassTransit(config =>
         {

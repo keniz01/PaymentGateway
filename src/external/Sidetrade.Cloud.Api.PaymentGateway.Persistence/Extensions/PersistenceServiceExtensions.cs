@@ -3,12 +3,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Sidetrade.Cloud.Api.PaymentGateway.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Mapster;
-using MapsterMapper;
 using Dapper;
 using Sidetrade.Cloud.Api.PaymentGateway.Application.Abstractions;
 using Npgsql;
 using System.Data;
+using MapsterMapper;
+using Mapster;
 
 namespace Sidetrade.Cloud.Api.PaymentGateway.Persistence;
 
@@ -32,7 +32,7 @@ public static class PersistenceServiceExtensions
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();
         services.AddScoped<IVendorAccountQueryRepository, VendorAccountQueryRepository>();
         services.AddSingleton(new TypeAdapterConfig());
-        services.AddScoped<IMapper, ServiceMapper>();
+        services.AddScoped<IMapper, Mapper>();
         return services;
     }
 }

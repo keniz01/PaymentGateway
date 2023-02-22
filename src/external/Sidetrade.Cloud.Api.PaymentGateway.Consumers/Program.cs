@@ -18,7 +18,7 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         services.AddSingleton(new TypeAdapterConfig());
-        services.AddScoped<IMapper, ServiceMapper>();
+        services.AddScoped<IMapper, Mapper>();
         services.AddScoped<IVendorAccountCommandRepository, VendorAccountCommandRepository>();
         services.AddPersistenceServices(context.Configuration);
         services.AddApplicationServices(context.Configuration);

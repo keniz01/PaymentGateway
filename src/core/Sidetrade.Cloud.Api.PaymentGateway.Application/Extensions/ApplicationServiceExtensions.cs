@@ -13,7 +13,8 @@ public static class ApplicationServiceExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ICorrelationIdHelper, CorrelationIdHelper>();
-        services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(ApplicationAssembly.GetAssemblyReference()));
+        //services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
         //services.Scan(scan =>
         //    scan.FromAssemblyOf<CreateVendorAccountCommandHandler>()
         //        .AddClasses(classes => classes.AssignableTo(typeof(IRequestHandler<,>)))
