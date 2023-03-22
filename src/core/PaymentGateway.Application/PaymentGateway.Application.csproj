@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GetVendorAccount\**" />
+    <Compile Remove="Shared\**" />
+    <EmbeddedResource Remove="GetVendorAccount\**" />
+    <EmbeddedResource Remove="Shared\**" />
+    <None Remove="GetVendorAccount\**" />
+    <None Remove="Shared\**" />
+    <None Remove="Mapster" />
+    <None Remove="Mapster.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="MediatR" />
+    <None Remove="Microsoft.Extensions.Logging" />
+    <None Remove="GetActiveVendorAccount\" />
+    <None Remove="Shared\" />
+    <None Remove="Abstractions\" />
+    <None Remove="Dapper" />
+    <None Remove="Microsoft.Extensions.Configuration" />
+    <None Remove="Npgsql.ConfigureConnection" />
+    <None Remove="Npgsql" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Scrutor" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="MediatR" Version="12.0.0" />
+    <PackageReference Include="Npgsql.ConfigureConnection" Version="0.1.1" />
+    <PackageReference Include="Npgsql" Version="7.0.2" />
+    <PackageReference Include="Scrutor" Version="4.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PaymentGateway.Domain\PaymentGateway.Domain.csproj" />
+  </ItemGroup>
+</Project>

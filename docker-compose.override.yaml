@@ -2,12 +2,28 @@ version: "3.9"
 services:
     paymentgateway-api:
         environment:
-            - ConnectionStrings__PaymentGatewayContext="server=localhost;port=5432;database=postgres;user id=postgres;password=Versuv10us"
-            - RabbitMqOptions__HostName=rabbitmq
-            - RabbitMqOptions__Password=guest
-            - RabbitMqOptions__Username=guest    
-            - RabbitMqOptions__Port=5672,
-            - RabbitMqOptions__VirtualHost=/
-            - RabbitMqOptions__AutomaticRecoveryEnabled=true,
-            - RabbitMqOptions__DeliveryMode=RabbitMQDeliveryMode.Durable,
-            - RabbitMqOptions__RequestedHeartbeat=30
+            - ConnectionStrings__PaymentGatewayContext=server=postgres-db;port=5432;database=postgres;user id=postgres;password=postgres
+            - RabbitMqConfig__Host=rabbitmq
+            - RabbitMqConfig__Password=guest
+            - RabbitMqConfig__Username=guest    
+            - RabbitMqConfig__Port=5672
+            - RabbitMqConfig__VirtualHost=/
+            - RabbitMqConfig__AutomaticRecoveryEnabled=true,
+            - RabbitMqConfig__DeliveryMode=RabbitMQDeliveryMode.Durable
+            - RabbitMqConfig__RequestedHeartbeat=30
+    event-consumers:
+        environment:
+            - ConnectionStrings__PaymentGatewayContext=server=postgres-db;port=5432;database=postgres;user id=postgres;password=postgres
+            - RabbitMqConfig__Host=rabbitmq
+            - RabbitMqConfig__Password=guest
+            - RabbitMqConfig__Username=guest    
+            - RabbitMqConfig__Port=5672
+            - RabbitMqConfig__VirtualHost=/
+            - RabbitMqConfig__AutomaticRecoveryEnabled=true
+            - RabbitMqConfig__DeliveryMode=RabbitMQDeliveryMode.Durable
+            - RabbitMqConfig__RequestedHeartbeat=30    
+    postgres-db:
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=postgres           

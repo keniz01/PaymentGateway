@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Consumers/bin/Debug/net7.0/Sidetrade.Cloud.Api.PaymentGateway.Consumers.dll",
+            "program": "${workspaceFolder}/src/infrastructure/PaymentGateway.Consumers/bin/Debug/net7.0/PaymentGateway.Consumers.dll",
             "args": [],
-            "cwd": "${workspaceFolder}src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Consumers",
+            "cwd": "${workspaceFolder}src/infrastructure/PaymentGateway.Consumers",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
@@ -21,9 +21,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Api/bin/Debug/net7.0/Sidetrade.Cloud.Api.PaymentGateway.Api.dll",
+            "program": "${workspaceFolder}/src/infrastructure/PaymentGateway.Api/bin/Debug/net7.0/PaymentGateway.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/infrastructure/Sidetrade.Cloud.Api.PaymentGateway.Api",
+            "cwd": "${workspaceFolder}/src/infrastructure/PaymentGateway.Api",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
